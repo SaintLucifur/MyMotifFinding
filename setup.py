@@ -22,8 +22,8 @@ setup(
     author_email='xxx',
     packages=find_packages(),
     entry_points={
-        "console_scripts": [
-            "mmf=MyMotifFinding:main"
+        'console_scripts': [
+            'mmf=MyMotifFinding.MyMotifFinding:main'
         ],
     },
 )
