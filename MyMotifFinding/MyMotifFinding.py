@@ -9,7 +9,7 @@ Command-line script to perform motif finding of peaks file
 import argparse
 import os
 import sys
-from pyfaidx import Fasta
+# from pyfaidx import Fasta
 
 def main():
     parser = argparse.ArgumentParser(
@@ -33,8 +33,6 @@ def main():
     print(args.fasta_ref)
     print(args.out)
     print(args.peaks)
-
-    genes = Fasta(args.fasta_ref)
     
 if __name__ == "__main__":
     main()
