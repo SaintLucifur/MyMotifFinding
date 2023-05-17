@@ -1,0 +1,10 @@
+README.md
+setup.py
+MyMotifFinding/MyMotifFinding.py
+MyMotifFinding/__init__.py
+MyMotifFinding/version.py
+MyMotifFinding.egg-info/PKG-INFO
+MyMotifFinding.egg-info/SOURCES.txt
+MyMotifFinding.egg-info/dependency_links.txt
+MyMotifFinding.egg-info/entry_points.txt
+MyMotifFinding.egg-info/top_level.txt

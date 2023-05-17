@@ -9,6 +9,7 @@ Command-line script to perform motif finding of peaks file
 import argparse
 import os
 import sys
+from MyMotifFinding import __version__
 
 def main():
     parser = argparse.ArgumentParser(
@@ -32,6 +33,7 @@ def main():
     print(args.fasta_ref)
     print(args.out)
     print(args.peaks)
-
+    
+    
 if __name__ == "__main__":
-    main()
+        main()
