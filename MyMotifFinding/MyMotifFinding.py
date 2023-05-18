@@ -5,7 +5,7 @@ Command-line script to perform motif finding of peaks file
 
 """
 
-
+from . import utils
 import argparse
 import os
 import sys
