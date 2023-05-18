@@ -30,6 +30,10 @@ def main():
     
     # Parse args
     args = parser.parse_args()
+    
+    genome = Fasta(args.fasta_ref)
+    
+    # genome.get_seq(start:, end:, chr)
     print(args.fasta_ref)
     print(args.out)
     print(args.peaks)
