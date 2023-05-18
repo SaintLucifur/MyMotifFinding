@@ -1,13 +1,19 @@
 import csv
+import numpy as np
+import math
 
 fileName = ".\Test\peaksTest.txt"
 
-"""
-return type: dict   peaksDict
-key type: str   #PeakID
-value type: str [chr, start, end, strand, Normalized Tag Count]
-"""
 def getPeaksDict(fileName):
+    """ Read the peaks.txt csv file
+
+    Args:
+        fileName (str): path to peaks.txt
+
+    Returns:
+        dict: key type: str   #PeakID
+            value type: str list [chr, start, end, strand, Normalized Tag Count]
+    """
     peaksDict = {}
     with open(fileName, newline='') as csvPeak:
         f = csv.DictReader(csvPeak, delimiter='\t', fieldnames=["#PeakID", "chr", "start", "end",
@@ -26,6 +32,32 @@ def getPeaksDict(fileName):
                 
                 
     return peaksDict
+
+def getPFM(sequences):
+    nucs = {"A": 0, "C": 1, "G": 2, "T": 3}
+    pfm = np.zeros((4, len(sequences[0])))
+    
+    for i in range (len(sequences)):
+        for j in range(len(sequences[0])):
+            pfm[nucs[sequences[i][j]]][j] += 1
+    return pfm
+
+def getBackgroundFreq():
+    background_freq = [0.25, 0.25, 0.25, 0.25]
+    return background_freq
+
+def getPWM(sequences, background_freqs=[0.25, 0.25, 0.25, 0.25]):
+    
+    pwm = np.zeros((4, len(sequences[0])))
+    pfm = getPFM(sequences)
+    pfm = pfm + 0.01
+    
+    for i in range(len(pfm)):
+        for j in range(len(pfm[0])):
+            pwm[i][j] = math.log2(pfm[i,j]/np.sum(pfm[:,j])/background_freqs[i])
+            
+    return pwm
+
 
 def main():
     dict = getPeaksDict(fileName)
