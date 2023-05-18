@@ -27,7 +27,6 @@ def getPeaksDict(fileName):
                 
     return peaksDict
 
-
 def main():
     dict = getPeaksDict(fileName)
     for key in dict.keys():
