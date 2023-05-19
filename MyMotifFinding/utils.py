@@ -30,7 +30,7 @@ def getPeaksDict(fileName):
                 peaksDict[row["#PeakID"]] = [row["chr"], row["start"], row["end"],
                                                 row["strand"], row["Normalized Tag Count"]]
                 
-                
+    peaksDict.pop("#PeakID", None)            
     return peaksDict
 
 def getPFM(sequences):
