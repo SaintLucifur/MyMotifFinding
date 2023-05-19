@@ -33,6 +33,10 @@ def getPeaksDict(fileName):
     peaksDict.pop("#PeakID", None)            
     return peaksDict
 
+def getPFM(sequencesDict):
+    for key in peaksDict.keys():
+        sequence = peaksDict[key][4]
+        
 def getPFM(sequences):
     nucs = {"A": 0, "C": 1, "G": 2, "T": 3}
     pfm = np.zeros((4, len(sequences[0])))
