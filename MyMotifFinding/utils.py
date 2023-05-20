@@ -45,15 +45,6 @@ def getPFM(sequencesDict):
         
     return pfm
 
-# def getPFM(sequences):
-#     nucs = {"A": 0, "C": 1, "G": 2, "T": 3}
-#     pfm = np.zeros((4, len(sequences[0])))
-    
-#     for i in range (len(sequences)):
-#         for j in range(len(sequences[0])):
-#             pfm[nucs[sequences[i][j]]][j] += 1
-#     return pfm
-
 def getBackgroundFreq():
     background_freq = [0.25, 0.25, 0.25, 0.25]
     return background_freq
@@ -88,24 +79,5 @@ def main():
     print(pfm)
     pwm = getPWM(pfm)
     print(pwm)
-    
-    seqlogoCode = """
-import seqlogo
-# make seqlogo PWM object
-seq_pwm = seqlogo.Pwm(pwm)
-# Convert to ppm needed for plotting
-seq_ppm = seqlogo.Ppm(seqlogo.pwm2ppm(seq_pwm))
-seqlogo.seqlogo(seq_ppm, ic_scale = True, format = 'png', size = 'medium')
-    """
-    
-    jupy = nbformat.v4.new_notebook()
-    pwmString = """pwm = """ + str(repr(np.array(pwm))) + '\n' + seqlogoCode
-    print(pwmString)
-    
-    jupy['cells'] = [nbformat.v4.new_code_cell(pwmString)]
-    nbformat.write(jupy,'Test.ipynb')
-    
-    # jupy['cells'] = [nbformat.v4.new_code_cell(seqlogoCode)]
-    # nbformat.write(jupy,'Test.ipynb')
     
 main()
