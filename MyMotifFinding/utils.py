@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import math
 import nbformat
+import loadGenome as LG
 
 fileName = ".\Test\peaksTest.txt"
 
@@ -39,9 +40,9 @@ def getSequence(peaksDict, genomeDict):
     
     for peak in peaksDict.keys():
         chr = peaksDict[peak][0]
-        start = peaksDict[peak][1]
-        end = peaksDict[peak][2]
-        count = peaksDict[peak][4]
+        start = int(peaksDict[peak][1])
+        end = int(peaksDict[peak][2])
+        count = int(peaksDict[peak][4])
         seq = genomeDict[chr][start:end]
         sequenceDict[seq] = count
         
@@ -92,5 +93,14 @@ def main():
     print(pfm)
     pwm = getPWM(pfm)
     print(pwm)
+    
+    egPeaksDict = {
+        "Peak_1":["chr1", "1000", "1010", "+", "100"]
+    }
+    ## Try Loading Genome
+    faFilePath = "C:\\Users\\Charles Choi\\Downloads\\hg38.fa"
+    genomeDict = LG.load_genome(faFilePath)
+    seqDict = getSequence(egPeaksDict, genomeDict)
+    print(seqDict)
     
 main()
