@@ -34,6 +34,19 @@ def getPeaksDict(fileName):
     peaksDict.pop("#PeakID", None)            
     return peaksDict
 
+def getSequence(peaksDict, genomeDict):
+    sequenceDict = {}
+    
+    for peak in peaksDict.keys():
+        chr = peaksDict[peak][0]
+        start = peaksDict[peak][1]
+        end = peaksDict[peak][2]
+        count = peaksDict[peak][4]
+        seq = genomeDict[chr][start:end]
+        sequenceDict[seq] = count
+        
+    return sequenceDict
+
 
 def getPFM(sequencesDict):
     nucs = {"A": 0, "C": 1, "G": 2, "T": 3}
