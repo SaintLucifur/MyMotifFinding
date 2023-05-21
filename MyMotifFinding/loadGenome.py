@@ -18,14 +18,14 @@ def load_genome(filename):
             
             if line.startswith('>'):
                 if chrom is not None:
-                    genome_dict[chrom] = ''.join(genome_dict[chrom])
+                    genome_dict[chrom] = ''.join(genome_dict[chrom]).upper()
                 chrom = line[1:]
                 genome_dict[chrom] = []
             else:
                 genome_dict[chrom].append(line)
 
         if chrom is not None:
-            genome_dict[chrom] = ''.join(genome_dict[chrom])
+            genome_dict[chrom] = ''.join(genome_dict[chrom]).upper()
 
     return genome_dict  
 
