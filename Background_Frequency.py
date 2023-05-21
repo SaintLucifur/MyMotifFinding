@@ -106,13 +106,19 @@ def countFreq(selected_bg_regions):
     return freqs
 
 
-def getBackgroundFreq(genome_dict, peaksDict, fileName, total_regions=10000):
+def getBackgroundFreq(genome_dict, peaksDict, total_regions=10000):
     """
     Return the background frequencies
     """
-    peakSize, peakNum = find_peak_size_num(fileName)
+    peakNum = len(peaksDict) - 1 
+    peakSize = None
+    if peaksDict:
+        fst_peak = next(iter((peaksDict.keys())))
+        fst_v = peaksDict[fst_peak]
+        peakSize = int(fst_v[2]) - int(fst_v[1]) 
     sequenceList = getSeqList(peaksDict, genome_dict)
     regions = select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_regions)
     freq = countFreq(regions)
     return freq
+
 
