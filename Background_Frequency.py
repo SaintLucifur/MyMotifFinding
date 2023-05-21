@@ -97,7 +97,7 @@ def countFreq(selected_bg_regions):
     Return a list containing the frequences of  ["A", "C", "G", "T"]
     """
     total_seq = "".join(selected_bg_regions)
-    totalNum = len(total_seq)
+    totalNum = total_seq.count("G")+total_seq.count("C")+total_seq.count("A")+total_seq.count("T")
     freqs = [0]*4
     freqs[0] = total_seq.count("A")/totalNum
     freqs[1] = total_seq.count("C")/totalNum
