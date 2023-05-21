@@ -75,7 +75,7 @@ def select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_region
     Select background regions that match the GC distribution of the input list of sequences
     """
     load  = sequenceList
-    #chrom = returnChrom(peaksDict, genome_dict)
+    chrom = returnChrom(peaksDict, genome_dict)
     load_seq = genome_dict[chrom]
     bg_regions_num = max(total_regions, 2 * peakNum)
     input_gc= [calculate_GC(seq) for seq in sequenceList if calculate_GC(seq) > 0]
