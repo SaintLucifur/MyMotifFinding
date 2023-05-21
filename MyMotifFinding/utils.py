@@ -48,6 +48,16 @@ def getSequence(peaksDict, genomeDict):
         
     return sequenceDict
 
+def getMotifDict(seqsDict, n):
+    motifDict = {}
+    
+    for seq in seqsDict.keys():
+        count = seqsDict[seq]
+        for j in range(len(seq)-n+1):
+            motif = seq[j:j+n]
+            motifDict[motif] = count
+            
+    return motifDict
 
 def getPFM(sequencesDict):
     nucs = {"A": 0, "C": 1, "G": 2, "T": 3}
@@ -89,18 +99,20 @@ def main():
         "TACGG":4,
         "AGCCG":3
     }
-    pfm = getPFM(example)
-    print(pfm)
-    pwm = getPWM(pfm)
-    print(pwm)
+    # pfm = getPFM(example)
+    # print(pfm)
+    # pwm = getPWM(pfm)
+    # print(pwm)
+    motifDict = getMotifDict(example, 4)
+    print(motifDict)
     
     egPeaksDict = {
         "Peak_1":["chr1", "1000", "1010", "+", "100"]
     }
     ## Try Loading Genome
-    faFilePath = "C:\\Users\\Charles Choi\\Downloads\\hg38.fa"
-    genomeDict = LG.load_genome(faFilePath)
-    seqDict = getSequence(egPeaksDict, genomeDict)
-    print(seqDict)
+    # faFilePath = "C:\\Users\\Charles Choi\\Downloads\\hg38.fa"
+    # genomeDict = LG.load_genome(faFilePath)
+    # seqDict = getSequence(egPeaksDict, genomeDict)
+    # print(seqDict)
     
 main()
