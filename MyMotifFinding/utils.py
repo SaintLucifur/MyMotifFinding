@@ -35,6 +35,32 @@ def getPeaksDict(fileName):
     peaksDict.pop("#PeakID", None)            
     return peaksDict
 
+def getFac(facFile):
+    pfmList = []
+    with open(facFile, newline='') as csvFac:
+        f = csv.reader(csvFac, delimiter='\t')
+        i = 0
+        hitXX = False
+        for row in f:
+            if i < 6:
+                i += 1
+                continue
+            
+            if hitXX == True:
+                break
+            
+            if row[0] == "XX":
+                hitXX = True
+                
+            else:
+                pfmList.append(row)
+                
+    pfm = np.zeros((len(pfmList), 4))
+    for i in range(len(pfm)):
+        for j in range(len(pfm[0])):
+            pfm[i][j] = pfmList[i][j+1]
+    return pfm
+
 def getReverseComplement(seq):
     """ Get the reverse complement of a sequence
     
@@ -105,8 +131,42 @@ def getPWM(pfm, background_freqs=[0.25, 0.25, 0.25, 0.25]):
             
     return pwm
 
+def getScore(pwm, seq):
+    n = pwm.shape[1]
+    scores = [0]*(len(seq)-n+1) # list of scores. scores[i] should give the score of the substring sequence[i:i+n]
+    # your code here
+    for i in range(len(seq)-n+1):
+        scores[i] = ScoreSeq(pwm, seq[i:i+n])
+#     raise NotImplementedError
+    return scores
+
+def ScoreSeq(pwm, sequence):
+    """ Score a sequence using a PWM
+    
+    Parameters
+    ----------
+    pwm : 2d np.array
+       Position weight matrix
+    sequence : str
+       Sequence of nucleotides to be scored
+       
+    Returns
+    -------
+    score : float
+       PWM score of the sequence
+    """
+    score = 0
+    
+    nucs_rows = {'A':0, 'C':1, 'G':2, 'T':3}
+    for i in range(len(sequence)):
+        score += pwm[nucs_rows[sequence[i]]][i]
+        
+    return score
 
 def main():
+    facFile = "C:\\Users\\Charles Choi\\Downloads\\MA0265.1.transfac"
+    print(getFac(facFile))
+    
     dict = getPeaksDict(fileName)
     for key in dict.keys():
         if key == '17-14':

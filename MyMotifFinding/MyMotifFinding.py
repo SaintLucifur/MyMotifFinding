@@ -9,7 +9,6 @@ from . import utils
 import argparse
 import os
 import sys
-from pyfaidx import Fasta
 
 def main():
     parser = argparse.ArgumentParser(
@@ -24,6 +23,8 @@ def main():
     parser.add_argument("-f", "--fasta-ref", 
                         help="faidx Indexed Referencce Genome fasta file", 
                         metavar="FILE", type=str)
+    parser.add_argument("-transfac", "--fac", help="transfac file from JASPAR", metavar="FILE", type=str)
+    
     # Output
     parser.add_argument("-o", "--out", help="Write output to file." \
         "Default: stdout", metavar="FILE", type=str, required=False)
@@ -31,12 +32,11 @@ def main():
     # Parse args
     args = parser.parse_args()
     
-    genome = Fasta(args.fasta_ref)
-    
     # genome.get_seq(start:, end:, chr)
     print(args.fasta_ref)
     print(args.out)
     print(args.peaks)
+    print(args.fac)
     
 if __name__ == "__main__":
     main()
