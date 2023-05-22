@@ -148,8 +148,10 @@ def select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_region
     while len(selected_bg_regions) < bg_regions_num:
         start_pos = random.randint(0, len(load_seq)-peakSize)
         bg_region = load_seq[start_pos : start_pos + peakSize]
+        bg_length = len(bg_region)
         bg_gcper = calculate_GC(bg_region)
-        if bg_gcper >= min_gc and bg_gcper <= max_gc:
+        bg_N_per = bg_region.count("N")/bg_length * 100
+        if bg_gcper >= min_gc and bg_gcper <= max_gc and bg_N_per < 70:
             selected_bg_regions.append(bg_region)
     return selected_bg_regions
 
