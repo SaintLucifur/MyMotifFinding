@@ -35,6 +35,27 @@ def getPeaksDict(fileName):
     peaksDict.pop("#PeakID", None)            
     return peaksDict
 
+def getReverseComplement(seq):
+    """ Get the reverse complement of a sequence
+    
+    Parameters
+    ----------
+    sequence : str
+      Sequence of nucleotides
+      
+    Returns
+    -------
+    revcomp : str
+      Reverse complement of sequence
+    """
+    revcomp = ""
+    
+    reverse_dict = {'A':'T', 'T':'A', 'C':'G', 'G':'C'}
+    for nuc in seq[::-1]:
+        revcomp += reverse_dict[nuc]
+        
+    return revcomp
+
 def getSequence(peaksDict, genomeDict):
     sequenceDict = {}
     
