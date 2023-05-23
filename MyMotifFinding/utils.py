@@ -1,8 +1,6 @@
 import csv
 import numpy as np
 import math
-import nbformat
-import loadGenome as LG
 
 fileName = ".\Test\peaksTest.txt"
 
@@ -14,12 +12,12 @@ def getPeaksDict(fileName):
 
     Returns:
         dict: key type: str   #PeakID
-            value type: str list [chr, start, end, strand, Normalized Tag Count]
+            value type: str list [chr, start, end, strand]
     """
     peaksDict = {}
     with open(fileName, newline='') as csvPeak:
         f = csv.DictReader(csvPeak, delimiter='\t', fieldnames=["#PeakID", "chr", "start", "end",
-                        "strand", "Normalized Tag Count"])
+                        "strand"])
         i = 0
         for row in f:
             if i < 39:
@@ -27,10 +25,10 @@ def getPeaksDict(fileName):
                 continue
             else:
                 print(row["#PeakID"], row["chr"], row["start"], 
-                      row["end"], row["strand"], row["Normalized Tag Count"])
+                      row["end"], row["strand"])
                 
                 peaksDict[row["#PeakID"]] = [row["chr"], row["start"], row["end"],
-                                                row["strand"], row["Normalized Tag Count"]]
+                                                row["strand"]]
                 
     peaksDict.pop("#PeakID", None)            
     return peaksDict
@@ -40,25 +38,23 @@ def getFac(facFile):
     with open(facFile, newline='') as csvFac:
         f = csv.reader(csvFac, delimiter='\t')
         i = 0
-        hitXX = False
         for row in f:
             if i < 6:
                 i += 1
                 continue
             
-            if hitXX == True:
-                break
-            
-            if row[0] == "XX":
-                hitXX = True
-                
             else:
-                pfmList.append(row)
+                if row[0] == "XX":
+                    break
+                else:
+                    pfmList.append(row)
                 
     pfm = np.zeros((len(pfmList), 4))
     for i in range(len(pfm)):
         for j in range(len(pfm[0])):
             pfm[i][j] = pfmList[i][j+1]
+    pfm = pfm.transpose()
+    
     return pfm
 
 def getReverseComplement(seq):
@@ -82,39 +78,16 @@ def getReverseComplement(seq):
         
     return revcomp
 
-def getSequence(peaksDict, genomeDict):
-    sequenceDict = {}
+def getSequences(peaksDict, genomeDict):
+    sequences = []
     
     for peak in peaksDict.keys():
         chr = peaksDict[peak][0]
         start = int(peaksDict[peak][1])
         end = int(peaksDict[peak][2])
-        count = int(peaksDict[peak][4])
         seq = genomeDict[chr][start:end]
-        sequenceDict[seq] = count
-        
-    return sequenceDict
-
-def getMotifDict(seqsDict, n):
-    motifDict = {}
-    
-    for seq in seqsDict.keys():
-        count = seqsDict[seq]
-        for j in range(len(seq)-n+1):
-            motif = seq[j:j+n]
-            motifDict[motif] = count
-            
-    return motifDict
-
-def getPFM(sequencesDict):
-    nucs = {"A": 0, "C": 1, "G": 2, "T": 3}
-    pfm = np.zeros((4, len(list(sequencesDict.keys())[0])))
-    
-    for sequence in sequencesDict.keys():
-        for j in range(len(sequence)):
-            pfm[nucs[sequence[j]]][j] += sequencesDict[sequence]
-        
-    return pfm
+        sequences.append(seq)
+    return sequences
 
 def getBackgroundFreq():
     background_freq = [0.25, 0.25, 0.25, 0.25]
@@ -132,12 +105,20 @@ def getPWM(pfm, background_freqs=[0.25, 0.25, 0.25, 0.25]):
     return pwm
 
 def getScore(pwm, seq):
+    """return list of scores of motif on the given pwm using possible motifs from seq
+
+    Args:
+        pwm (numpy 2d array): positional weight matrix
+        seq (str): long sequence of nucleotides
+
+    Returns:
+        float list: scores of motifs
+    """
     n = pwm.shape[1]
-    scores = [0]*(len(seq)-n+1) # list of scores. scores[i] should give the score of the substring sequence[i:i+n]
-    # your code here
+    scores = [0]*(len(seq)-n+1)
     for i in range(len(seq)-n+1):
         scores[i] = ScoreSeq(pwm, seq[i:i+n])
-#     raise NotImplementedError
+
     return scores
 
 def ScoreSeq(pwm, sequence):
@@ -165,27 +146,15 @@ def ScoreSeq(pwm, sequence):
 
 def main():
     facFile = "C:\\Users\\Charles Choi\\Downloads\\MA0265.1.transfac"
-    print(getFac(facFile))
+    pfm = getFac(facFile)
+    print(pfm)
     
+    pwm = getPWM(pfm)
+    print(pwm)
     dict = getPeaksDict(fileName)
     for key in dict.keys():
         if key == '17-14':
-            print(dict[key][1], dict[key][2])
-    
-    example = {
-        "ATTAG":5,
-        "TCGCG":6,
-        "GGTGG":7,
-        "TATAG":8,
-        "TACGG":4,
-        "AGCCG":3
-    }
-    # pfm = getPFM(example)
-    # print(pfm)
-    # pwm = getPWM(pfm)
-    # print(pwm)
-    motifDict = getMotifDict(example, 4)
-    print(motifDict)
+            print(dict[key][1], dict[key][2]) 
     
     egPeaksDict = {
         "Peak_1":["chr1", "1000", "1010", "+", "100"]
