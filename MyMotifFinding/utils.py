@@ -137,12 +137,14 @@ def ScoreSeq(pwm, sequence):
        PWM score of the sequence
     """
     score = 0
+    scoreDict = {}
     
     nucs_rows = {'A':0, 'C':1, 'G':2, 'T':3}
     for i in range(len(sequence)):
         score += pwm[nucs_rows[sequence[i]]][i]
         
-    return score
+    scoreDict[score] = sequence
+    return scoreDict
 
 def main():
     facFile = "C:\\Users\\Charles Choi\\Downloads\\MA0265.1.transfac"
