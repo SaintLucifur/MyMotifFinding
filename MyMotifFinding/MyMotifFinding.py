@@ -11,6 +11,9 @@ import os
 import sys
 import loadGenome
 
+def mergeDict(dict1, dict2):
+    return(dict2.update(dict1))
+
 def main():
     parser = argparse.ArgumentParser(
         prog="mmf",
@@ -45,10 +48,9 @@ def main():
     genomeDict = loadGenome.load_genome(args.fasta_ref)
     pwm = utils.getPWM(pfm)
     sequences = utils.getSequences(peaksDict, genomeDict)
-    
-    scores_list = []
+    scores_list = {}
     for seq in sequences:
-        scores_list.append(utils.ScoreSeq(pwm, seq))
-    
+        mergeDict(scores_list, utils.ScoreSeq(pwm, seq))
+        
 if __name__ == "__main__":
     main()
