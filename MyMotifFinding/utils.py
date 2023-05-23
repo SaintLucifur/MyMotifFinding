@@ -24,9 +24,6 @@ def getPeaksDict(fileName):
                 i += 1
                 continue
             else:
-                print(row["#PeakID"], row["chr"], row["start"], 
-                      row["end"], row["strand"])
-                
                 peaksDict[row["#PeakID"]] = [row["chr"], row["start"], row["end"],
                                                 row["strand"]]
                 
@@ -85,7 +82,10 @@ def getSequences(peaksDict, genomeDict):
         chr = peaksDict[peak][0]
         start = int(peaksDict[peak][1])
         end = int(peaksDict[peak][2])
+        strand = peaksDict[peak][3]
         seq = genomeDict[chr][start:end]
+        if strand == '-': ## handle the reverse read
+            seq = getReverseComplement(seq)
         sequences.append(seq)
     return sequences
 
@@ -94,7 +94,7 @@ def getBackgroundFreq():
     return background_freq
 
 def getPWM(pfm, background_freqs=[0.25, 0.25, 0.25, 0.25]):
-    
+
     pwm = np.zeros((4, len(pfm[0])))
     pfm = pfm + 0.01
     
@@ -152,13 +152,8 @@ def main():
     pwm = getPWM(pfm)
     print(pwm)
     dict = getPeaksDict(fileName)
-    for key in dict.keys():
-        if key == '17-14':
-            print(dict[key][1], dict[key][2]) 
+    print(dict)
     
-    egPeaksDict = {
-        "Peak_1":["chr1", "1000", "1010", "+", "100"]
-    }
     ## Try Loading Genome
     # faFilePath = "C:\\Users\\Charles Choi\\Downloads\\hg38.fa"
     # genomeDict = LG.load_genome(faFilePath)

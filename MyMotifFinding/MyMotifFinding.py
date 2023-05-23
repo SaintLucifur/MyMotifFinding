@@ -9,6 +9,7 @@ from . import utils
 import argparse
 import os
 import sys
+import loadGenome
 
 def main():
     parser = argparse.ArgumentParser(
@@ -23,6 +24,7 @@ def main():
     parser.add_argument("-f", "--fasta-ref", 
                         help="faidx Indexed Referencce Genome fasta file", 
                         metavar="FILE", type=str)
+    
     parser.add_argument("-transfac", "--fac", help="transfac file from JASPAR", metavar="FILE", type=str)
     
     # Output
@@ -37,6 +39,16 @@ def main():
     print(args.out)
     print(args.peaks)
     print(args.fac)
+    
+    peaksDict = utils.getPeaksDict(args.peaks)
+    pfm = utils.getFac(args.fac)
+    genomeDict = loadGenome.load_genome(args.fasta_ref)
+    pwm = utils.getPWM(pfm)
+    sequences = utils.getSequences(peaksDict, genomeDict)
+    
+    scores_list = []
+    for seq in sequences:
+        scores_list.append(utils.ScoreSeq(pwm, seq))
     
 if __name__ == "__main__":
     main()
