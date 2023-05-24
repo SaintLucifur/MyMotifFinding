@@ -5,11 +5,12 @@ Command-line script to perform motif finding of peaks file
 
 """
 
-from . import utils
+import utils
 import argparse
 import os
 import sys
 import loadGenome
+import Background_Frequency as BF
 
 def mergeDict(dict1, dict2):
     merged_dict = dict1.copy()
@@ -48,15 +49,20 @@ def main():
     peaksDict = utils.getPeaksDict(args.peaks)
     pfm = utils.getFac(args.fac)
     genomeDict = loadGenome.load_genome(args.fasta_ref)
+    # backgroundFreq = BF.getBackgroundFreq(genomeDict, peaksDict)
     pwm = utils.getPWM(pfm)
+    # pwm = utils.getPWM(pfm, backgroundFreq)
     sequences = utils.getSequences(peaksDict, genomeDict)
     scoresDict = {}
     for seq in sequences:
-        mergeDict(utils.getScore(pwm, seq), scoresDict)
+        scoresDict = mergeDict(scoresDict, utils.getScore(pwm, seq))
     
     maxScore = max(list(scoresDict.keys()))
     bestMatchMotif = scoresDict[maxScore]
     print(bestMatchMotif)
     
+    fasta = "C:\\Users\\Charles Choi\\Downloads\\GRCm38.chr17.fa"
+    peaks = "C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\peaks.txt"
+    fac = "C:\\Users\\Charles Choi\\Downloads\\MA0143.1.transfac"
 if __name__ == "__main__":
     main()
