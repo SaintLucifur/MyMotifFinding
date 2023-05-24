@@ -39,11 +39,10 @@ PWMList = [motifs.read(file, "jaspar") for file in pwm_files]
 pwm_thresholds = [calculate_pseudocounts(pwm) for pwm in PWMList]
 
 # Load the sequences 
-peak_file = input("Enter the peak sequence file name: ")
-bg_file = input("Enter the background sequence file name: ")
-peak_seqs = [str(rec.seq) for rec in SeqIO.parse(peak_file, 'fasta')]
-bg_seqs = [str(rec.seq) for rec in SeqIO.parse(bg_file, 'fasta')]
-
+genome_dict = load_genome("GRCm38.chr17.fa")
+peaksDict = getPeaksDict("peaks.txt")
+peak_seqs = getSeqList(peaksDict, genome_dict)
+bg_seqs = getBackgroundFreq(genome_dict, peaksDict, total_regions=10000)
 
 # Calculate the enrichment for each motif
 for i in range(len(PWMList)):
