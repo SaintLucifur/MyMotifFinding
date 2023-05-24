@@ -1,4 +1,4 @@
-    seqlogoCode = """
+seqlogoCode = """
 import seqlogo
 # make seqlogo PWM object
 seq_pwm = seqlogo.Pwm(pwm)

@@ -50,8 +50,8 @@ def main():
     pfm = utils.getFac(args.fac)
     genomeDict = loadGenome.load_genome(args.fasta_ref)
     # backgroundFreq = BF.getBackgroundFreq(genomeDict, peaksDict)
-    pwm = utils.getPWM(pfm)
-    # pwm = utils.getPWM(pfm, backgroundFreq)
+    # pwm = utils.getPWM(pfm)
+    pwm = utils.getPWM(pfm, [0.28393081037720014, 0.2152101167620156, 0.2144817224377074, 0.2863773504230768])
     sequences = utils.getSequences(peaksDict, genomeDict)
     scoresDict = {}
     for seq in sequences:
