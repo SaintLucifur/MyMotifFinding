@@ -115,11 +115,10 @@ def getScore(pwm, seq):
         float list: scores of motifs
     """
     n = pwm.shape[1]
-    scores = [0]*(len(seq)-n+1)
+    scoresDict = {}
     for i in range(len(seq)-n+1):
-        scores[i] = ScoreSeq(pwm, seq[i:i+n])
-
-    return scores
+        scoresDict.update(ScoreSeq(pwm, seq[i:i+n]))
+    return scoresDict
 
 def ScoreSeq(pwm, sequence):
     """ Score a sequence using a PWM

@@ -50,9 +50,13 @@ def main():
     genomeDict = loadGenome.load_genome(args.fasta_ref)
     pwm = utils.getPWM(pfm)
     sequences = utils.getSequences(peaksDict, genomeDict)
-    scores_list = {}
+    scoresDict = {}
     for seq in sequences:
-        mergeDict(scores_list, utils.ScoreSeq(pwm, seq))
-        
+        mergeDict(utils.getScore(pwm, seq), scoresDict)
+    
+    maxScore = max(list(scoresDict.keys()))
+    bestMatchMotif = scoresDict[maxScore]
+    print(bestMatchMotif)
+    
 if __name__ == "__main__":
     main()
