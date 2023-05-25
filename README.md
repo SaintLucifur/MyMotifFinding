@@ -26,11 +26,11 @@ utils.py: Provides utility functions for loading and processing data.
 
 The order to run the scripts would be:
 
-1. Run **Background_Frequency.py** script to calculate the background frequency.
+1. Run **MyMotifFinding.py** with required parameters (HOMER peaks file, faidx Indexed Referencce Genome fasta file, and transfac file from JASPAR):
+    `python MyMotifFinding.py --fasta-ref <path_to_fasta_ref> --out <output_file> --peaks <path_to_peaks_file> --transfac <path_to_fac_file>`
+2. (Automatically Run) **Background_Frequency.py** script to calculate the background frequency.
     `python Background_Frequency.py`
-2. Run **MyMotifFinding.py** with required parameters (HOMER peaks file, faidx Indexed Referencce Genome fasta file, and transfac file from JASPAR):
-    `python MyMotifFinding.py --fasta-ref <path_to_fasta_ref> --out <output_file> --peaks <path_to_peaks_file> --fac <path_to_fac_file>`
-3. Run **findPValue.py** to calculate the p-values for motif enrichment.
+3. (Automatically Run) **findPValue.py** to calculate the p-values for motif enrichment.
     `python findPValue.py`
 4. The utils.py script does not need to be run directly as it is imported by the other scripts.
 
