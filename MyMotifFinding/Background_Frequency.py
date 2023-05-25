@@ -17,29 +17,6 @@ def getSeqList(peaksDict, genome_dict):
         
     return sequenceList
 
-
-def find_peak_size_num(fileName):
-    """
-    Fidn the peak's size and number of peaks from the peaks.txt file
-    """
-    with open(fileName, 'r') as file:
-        content = file.read()
-
-    peakSize= None
-    peakNum= None
-
-    # Extract peak size
-    peak_Match = re.search(r"# peak size = (\d+)", content)
-    if peak_Match:
-        peakSize= int(peak_Match.group(1))
-
-    # Extract total peaks
-    num_Match = re.search(r"# total peaks = (\d+)", content)
-    if num_Match:
-        peakNum= int(num_Match.group(1))
-
-    return peakSize, peakNum
-
 def calculate_GC(sequences):
     """
     Calculate GC content in a list of sequences
