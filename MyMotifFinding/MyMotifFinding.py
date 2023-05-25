@@ -4,6 +4,9 @@
 Command-line script to perform motif finding of peaks file
 
 """
+FASTA = "C:\\Users\\Charles Choi\\Downloads\\GRCm38.chr17.fa"
+PEAKS = "C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\peaks.txt"
+FAC = "C:\\Users\\Charles Choi\\Downloads\\MA0143.1.transfac"
 
 import utils
 import argparse
@@ -41,11 +44,7 @@ def main():
     args = parser.parse_args()
     
     # genome.get_seq(start:, end:, chr)
-    print(args.fasta_ref)
-    print(args.out)
-    print(args.peaks)
-    print(args.fac)
-    
+
     peaksDict = utils.getPeaksDict(args.peaks)
     pfm = utils.getFac(args.fac)
     genomeDict = loadGenome.load_genome(args.fasta_ref)
@@ -57,12 +56,22 @@ def main():
     for seq in sequences:
         scoresDict = mergeDict(scoresDict, utils.getScore(pwm, seq))
     
-    maxScore = max(list(scoresDict.keys()))
-    bestMatchMotif = scoresDict[maxScore]
-    print(bestMatchMotif)
-    
-    fasta = "C:\\Users\\Charles Choi\\Downloads\\GRCm38.chr17.fa"
-    peaks = "C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\peaks.txt"
-    fac = "C:\\Users\\Charles Choi\\Downloads\\MA0143.1.transfac"
+    scores = list(scoresDict.keys())
+    scores.sort(reverse=True)
+    top10 = scores[:10]
+    html = open("KnownMotifFinding.html", "w")
+    header = """
+<html>\n<head>\n<title> \nOutput Data in an HTML file \
+</title>\n</head> <body><h1>Welcome to Group 34's Project <u><3</u></h1>\
+\n<h2>TOP 10 Motif Found for <u>dataset</u></h2> \n
+"""
+    html.write(header)
+    for score in top10:
+        html.write("<p>Motif: {0} &emsp;Score: {1}\n<br></p>".format(scoresDict[score], score))
+    tail = """
+</body></html>
+    """
+    html.write(tail)
+    html.close()
 if __name__ == "__main__":
     main()
