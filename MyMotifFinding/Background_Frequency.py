@@ -33,12 +33,11 @@ def calculate_GC(sequences):
 
 
 
-def select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_regions=50000):
+def select_bg_regions(genome_dict, sequenceList, chrom, peakSize, peakNum, total_regions=50000):
     """
     Select background regions that match the GC distribution of the input list of sequences
     """
     load  = sequenceList
-    chrom = peaksDict[peak][0]
     load_seq = genome_dict[chrom]
     bg_regions_num = max(total_regions, 2 * peakNum)
     input_gc= [calculate_GC(seq) for seq in sequenceList if calculate_GC(seq) > 0]
@@ -81,8 +80,11 @@ def getBackgroundFreq(genome_dict, peaksDict, total_regions=50000):
         fst_peak = next(iter((peaksDict.keys())))
         fst_v = peaksDict[fst_peak]
         peakSize = int(fst_v[2]) - int(fst_v[1]) 
+    chr_values = [value[0] for value in peaksDict.values()]
+    chr_count = Counter(chr_values)
+    chrom = max(chr_count, key = chr_count.get)
     sequenceList = getSeqList(peaksDict, genome_dict)
-    regions = select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_regions)
+    regions = select_bg_regions(genome_dict, sequenceList, chrom, peakSize, peakNum, total_regions)
     freq = countFreq(regions)
     return freq
 
