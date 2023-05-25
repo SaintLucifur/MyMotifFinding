@@ -1,94 +1,18 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 from typing import Dict
-
-def load_genome(filename): 
-    """ 
-    This method load reference genome and convert it into a dictionary
-    """
-    genome_dict = {}
-    chrom = None
-    with open(filename, "r") as sequences:
-        for line in sequences:
-            line = line.strip()
-            
-            if line.startswith('>'):
-                if chrom is not None:
-                    genome_dict[chrom] = ''.join(genome_dict[chrom]).upper()
-                chrom = line[1:]
-                genome_dict[chrom] = []
-            else:
-                genome_dict[chrom].append(line)
-
-        if chrom is not None:
-            genome_dict[chrom] = ''.join(genome_dict[chrom]).upper()
-
-    return genome_dict  
-genome_dict = load_genome("GRCm38.chr17.fa")
-import csv
-fileName = "peaks.txt"
-
-def getPeaksDict(fileName):
-    """ Read the peaks.txt csv file
-
-    Args:
-        fileName (str): path to peaks.txt
-
-    Returns:
-        dict: key type: str   #PeakID
-            value type: str list [chr, start, end, strand, Normalized Tag Count]
-    """
-    peaksDict = {}
-    with open(fileName, newline='') as csvPeak:
-        f = csv.DictReader(csvPeak, delimiter='\t', fieldnames=["#PeakID", "chr", "start", "end",
-                        "strand", "Normalized Tag Count"])
-        i = 0
-        for row in f:
-            if i < 39:
-                i += 1
-                continue
-            else:
-                print(row["#PeakID"], row["chr"], row["start"], 
-                      row["end"], row["strand"], row["Normalized Tag Count"])
-                
-                peaksDict[row["#PeakID"]] = [row["chr"], row["start"], row["end"],
-                                                row["strand"], row["Normalized Tag Count"]]
-                
-    peaksDict.pop("#PeakID", None)            
-    return peaksDict
-peaksDict = getPeaksDict("peaks.txt")
-
-
-# In[17]:
-
-
 import re
 import random
 
-def returnChrom(peaksDict, genome_dict):
-    """
-    Modify the chromosome name in peaksDict so it matches the ones in genome_dict
-    """
-    chrom = None
-    for peak in peaksDict:
-        chrom = "chr" + peaksDict[peak][0]
-    return chrom
 
 def getSeqList(peaksDict, genome_dict):
     """
     return a list of sequences based on the peaks's start and end coordinates
     """
     sequenceList = []
-    chrom = returnChrom(peaksDict, genome_dict)
     for peak in peaksDict.keys():
         chr = peaksDict[peak][0]
         start = int(peaksDict[peak][1])
         end = int(peaksDict[peak][2])
-        seq = genome_dict[chrom][start:end]
+        seq = genome_dict[chr][start:end]
         sequenceList.append(seq)
         
     return sequenceList
@@ -132,16 +56,16 @@ def calculate_GC(sequences):
 
 
 
-def select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_regions=10000):
+def select_bg_regions(genome_dict, sequenceList, peakSize, peakNum, total_regions=50000):
     """
     Select background regions that match the GC distribution of the input list of sequences
     """
     load  = sequenceList
-    chrom = returnChrom(peaksDict, genome_dict)
+    chrom = peaksDict[peak][0]
     load_seq = genome_dict[chrom]
     bg_regions_num = max(total_regions, 2 * peakNum)
     input_gc= [calculate_GC(seq) for seq in sequenceList if calculate_GC(seq) > 0]
-    min_gc = min(input_gc)
+    min_gc = min(input_gc)+5
     max_gc = max(input_gc)+5
     
     selected_bg_regions = []
@@ -170,7 +94,7 @@ def countFreq(selected_bg_regions):
     return freqs
 
 
-def getBackgroundFreq(genome_dict, peaksDict, total_regions=10000):
+def getBackgroundFreq(genome_dict, peaksDict, total_regions=50000):
     """
     Return the background frequencies
     """
