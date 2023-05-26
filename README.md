@@ -1,13 +1,13 @@
 # MyMotifFinding
 
-This project is designed to identify motifs in peak sequences. It provides several Python scripts that help to load reference genomes, compute GC content, identify peaks in the sequence, calculate scores of identified motifs, and compute the enrichment of motifs in bound sequences.
+This project is designed to identify motifs in peak sequences based on the known motif pwms (position weighted matrix). It provides a Python package that would load reference genome, compute GC content, identify peaks in the sequence, calculate scores of identified motifs, and compute the enrichment of motifs in bound sequences.
 
 **Scripts**:
 
 Background_Frequency.py: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
 MyMotifFinding.py: Performs motif finding in a provided peaks file.
 findPValue.py: Computes the enrichment for each motif and provides Fisher Exact Test p-values.
-utils.py: Provides utility functions for loading and processing data.
+utils.py: Provides utility functions for loading and processing data, and basic calculation on pfms, pwms.
 
 **Prerequisites**:
 
@@ -27,7 +27,7 @@ utils.py: Provides utility functions for loading and processing data.
 The order to run the scripts would be:
 
 1. Run **MyMotifFinding.py** with required parameters (HOMER peaks file, faidx Indexed Referencce Genome fasta file, and transfac file from JASPAR):
-    `python MyMotifFinding.py --fasta-ref <path_to_fasta_ref> --out <output_file> --peaks <path_to_peaks_file> --transfac <path_to_fac_file>`
+    `python MyMotifFinding.py --fasta-ref <path_to_fasta_ref>  --transfac <path_to_fac_file> --out <output_file> <path_to_peaks_file>`
 2. (Automatically Run) **Background_Frequency.py** script to calculate the background frequency.
     `python Background_Frequency.py`
 3. (Automatically Run) **findPValue.py** to calculate the p-values for motif enrichment.
