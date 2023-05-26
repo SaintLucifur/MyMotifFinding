@@ -27,7 +27,7 @@ utils.py: Provides utility functions for loading and processing data, and basic 
 The order to run the scripts would be:
 
 1. Run **MyMotifFinding.py** with required parameters (HOMER peaks file, faidx Indexed Referencce Genome fasta file, and transfac file from JASPAR):
-    `python MyMotifFinding.py --fasta-ref <path_to_fasta_ref>  --transfac <path_to_fac_file> --out <output_file> <path_to_peaks_file>`
+    `python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -o <output_file> <path_to_peaks_file>`
 2. (Automatically Run) **Background_Frequency.py** script to calculate the background frequency.
     `python Background_Frequency.py`
 3. (Automatically Run) **findPValue.py** to calculate the p-values for motif enrichment.
