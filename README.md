@@ -14,13 +14,13 @@ This project is designed to identify motifs in peak sequences based on the known
 
 **Scripts**:
 
-Background_Frequency.py: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
+*Background_Frequency.py*: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
 
-MyMotifFinding.py: Performs motif finding in a provided peaks file.
+*MyMotifFinding.py*: Performs motif finding in a provided peaks file.
 
-findPValue.py: Computes the enrichment for each motif and provides Fisher Exact Test p-values.
+*findPValue.py*: Computes the enrichment for each motif and provides Fisher Exact Test p-values.
 
-utils.py: Provides utility functions for loading and processing data, and basic calculation on pfms, pwms.
+*utils.py*: Provides utility functions for loading and processing data, and basic calculation on pfms, pwms.
 
 **Prerequisites**:
 
