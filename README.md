@@ -40,6 +40,7 @@ This project is designed to identify motifs in peak sequences based on the known
 The order to run the scripts would be:
 
 1. Run **MyMotifFinding.py** with required parameters (HOMER peaks file, faidx Indexed Referencce Genome fasta file, and transfac file from JASPAR):
+
     `python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -O <output_directory> <path_to_peaks_file>`
 2. (Automatically Run) **Background_Frequency.py** script to calculate the background frequency.
     `python Background_Frequency.py`
