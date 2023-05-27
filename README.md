@@ -13,7 +13,7 @@ This project is designed to identify motifs in peak sequences based on the known
 
 **Scripts**:
 
-<u>Background_Frequency.py</u>: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
+Background_Frequency.py: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
 
 MyMotifFinding.py: Performs motif finding in a provided peaks file.
 
