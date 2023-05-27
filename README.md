@@ -2,6 +2,9 @@
 
 This project is designed to identify motifs in peak sequences based on the known motif pwms (position weighted matrix). It provides a Python package that would load reference genome, compute GC content, identify peaks in the sequence, calculate scores of identified motifs, and compute the enrichment of motifs in bound sequences.
 
+**How to run the package**
+`python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -o <output_file> <path_to_peaks_file>`
+
 **Scripts**:
 
 Background_Frequency.py: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
