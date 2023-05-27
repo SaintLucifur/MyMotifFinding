@@ -61,14 +61,26 @@ def main():
     top10 = scores[:10]
     html = open("KnownMotifFinding.html", "w")
     header = """
-<html>\n<head>\n<title> \nOutput Data in an HTML file \
-</title>\n</head> <body><h1>Welcome to Group 34's Project <u><3</u></h1>\
-\n<h2>TOP 10 Motif Found for <u>dataset</u></h2> \n
-"""
+<html>\n<head>\n<title> \nOutput Data in an HTML file
+</title>\n</head> <h1>MMF Known Motif Enrichment Results </h1> \n
+<h3> ({dir}) </h3>
+<h2>TOP 10 Motif Found for <u>dataset</u></h2>\n
+<style>
+table, th, td {style}
+</style>
+<body>
+<table style="width:100%">
+    <tr>
+        <th>Motif</th>
+        <th>Scores</th>
+""".format(dir=os.getcwd(), style="{border:1px solid black;}")
     html.write(header)
     for score in top10:
-        html.write("<p>Motif: {0} &emsp;Score: {1}\n<br></p>".format(scoresDict[score], score))
+        html.write("\t<tr>\n")
+        html.write("\t\t<th>{0}</th> <th>{1}</th>\n".format(scoresDict[score], score))
+        html.write("\t</tr>\n")
     tail = """
+</table>
 </body></html>
     """
     html.write(tail)
