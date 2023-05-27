@@ -85,18 +85,22 @@ table, th, td {style}
         <th><b>Scores</b></th>
 """.format(dir=peakDir, transfac=transpath, style="{border: 1px solid black;font-weight:400;\
            border-collapse: collapse;}")
+
     html.write(header)
     n = 1
     for score in top10:
         html.write("\t<tr>\n")
-        html.write("\t\t<th>{0}<th>{1}</th> <th>{2}</th>\n".format(n, scoresDict[score], score))
+        score_trimmed = format(score, '.5f')
+        html.write("\t\t<th>{0}<th>{1}</th> <th>{2}</th>\n".format(n, scoresDict[score], score_trimmed))
         html.write("\t</tr>\n")
         n += 1
+        
     tail = """
 </table>
 Thanks for using this tool!
 </body></html>
     """
+    
     html.write(tail)
     html.close()
     
