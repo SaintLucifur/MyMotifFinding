@@ -73,7 +73,7 @@ def main():
 <html>\n<head>\n<title> \nOutput Data in an HTML file
 </title>\n</head> <h1>MMF Known Motif Enrichment Results </h1> \n
 <h3> peaks.txt path: <u>{dir}</u> </h3>
-<h2>TOP 10 Motif Found for <u>{transfac}</u></h2>\n
+<h3>TOP 10 Motif Found for <u>{transfac}</u></h3>\n
 <style>
 table, th, td {style}
 </style>
@@ -107,3 +107,8 @@ Thanks for using this tool!
     
 if __name__ == "__main__":
     main()
+run = """
+python MyMotifFinding.py -f "C:\\Users\\Charles Choi\\Downloads\\GRCm38.chr17.fa" \
+    -transfac "C:\\Users\\Charles Choi\\Downloads\\MA0143.1.transfac" \
+        -O testFolder "C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\peaks.txt"
+"""
