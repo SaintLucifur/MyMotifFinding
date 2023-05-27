@@ -2,9 +2,14 @@
 
 This project is designed to identify motifs in peak sequences based on the known motif pwms (position weighted matrix). It provides a Python package that would load reference genome, compute GC content, identify peaks in the sequence, calculate scores of identified motifs, and compute the enrichment of motifs in bound sequences.
 
-**How to run the package**
+**How to run the package**:
 
-`python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -o <output_file> <path_to_peaks_file>`
+`python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -O <output_directory> <path_to_peaks_file>`
+
+Options (required):
+* `-f`: path to the indexed reference genome in fasta format
+* `-transfac`: path to the **JASPAR** PFM of specific transcription factor in transfac format
+* `-O`: path to the directory in which the output is written (will create one if it does not exist)
 
 **Scripts**:
 
