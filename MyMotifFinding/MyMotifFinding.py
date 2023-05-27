@@ -37,8 +37,8 @@ def main():
     parser.add_argument("-transfac", "--fac", help="transfac file from JASPAR", metavar="FILE", type=str)
     
     # Output
-    parser.add_argument("-o", "--out", help="Write output to file." \
-        "Default: stdout", metavar="FILE", type=str, required=False)
+    parser.add_argument("-O", "--out", help="Write output to the directory." \
+        "Default: stdout", metavar="DIR", type=str, required=False)
     
     # Parse args
     args = parser.parse_args()
@@ -59,31 +59,47 @@ def main():
     scores = list(scoresDict.keys())
     scores.sort(reverse=True)
     top10 = scores[:10]
-    html = open("KnownMotifFinding.html", "w")
+    
+    ## html writing
+    htmlpath = os.path.join(str(args.out), "KnownMotifFinding.html")
+    peakDir = os.path.dirname(os.path.realpath(args.peaks))
+    transpath = os.path.abspath(args.fac)
+    
+    if not os.path.exists(str(args.out)):
+        os.makedirs(str(args.out))
+    html = open(htmlpath, "w")
+    
     header = """
 <html>\n<head>\n<title> \nOutput Data in an HTML file
 </title>\n</head> <h1>MMF Known Motif Enrichment Results </h1> \n
-<h3> ({dir}) </h3>
-<h2>TOP 10 Motif Found for <u>dataset</u></h2>\n
+<h3> peaks.txt path: <u>{dir}</u> </h3>
+<h2>TOP 10 Motif Found for <u>{transfac}</u></h2>\n
 <style>
 table, th, td {style}
 </style>
 <body>
 <table style="width:100%">
     <tr>
-        <th>Motif</th>
-        <th>Scores</th>
-""".format(dir=os.getcwd(), style="{border:1px solid black;}")
+        <th><b>Rank</b></th>
+        <th><b>Motif</b></th>
+        <th><b>Scores</b></th>
+""".format(dir=peakDir, transfac=transpath, style="{border: 1px solid black;font-weight:400;\
+           border-collapse: collapse;}")
     html.write(header)
+    n = 1
     for score in top10:
         html.write("\t<tr>\n")
-        html.write("\t\t<th>{0}</th> <th>{1}</th>\n".format(scoresDict[score], score))
+        html.write("\t\t<th>{0}<th>{1}</th> <th>{2}</th>\n".format(n, scoresDict[score], score))
         html.write("\t</tr>\n")
+        n += 1
     tail = """
 </table>
+Thanks for using this tool!
 </body></html>
     """
     html.write(tail)
     html.close()
+    
+    
 if __name__ == "__main__":
     main()
