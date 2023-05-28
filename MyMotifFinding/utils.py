@@ -24,7 +24,7 @@ def getPeaksDict(fileName):
                 i += 1
                 continue
             else:
-                peaksDict[row["#PeakID"]] = [row["chr"], row["start"], row["end"],
+                peaksDict[row["#PeakID"]] = ["chr17", row["start"], row["end"],
                                                 row["strand"]]
                 
     peaksDict.pop("#PeakID", None)            
@@ -89,10 +89,6 @@ def getSequences(peaksDict, genomeDict):
         sequences.append(seq)
     return sequences
 
-def getBackgroundFreq():
-    background_freq = [0.25, 0.25, 0.25, 0.25]
-    return background_freq
-
 def getPWM(pfm, background_freqs=[0.25, 0.25, 0.25, 0.25]):
 
     pwm = np.zeros((4, len(pfm[0])))
@@ -145,15 +141,15 @@ def ScoreSeq(pwm, sequence):
     scoreDict[score] = sequence
     return scoreDict
 
-def main():
-    facFile = "C:\\Users\\Charles Choi\\Downloads\\MA0265.1.transfac"
-    pfm = getFac(facFile)
-    print(pfm)
+# def main():
+#     facFile = "C:\\Users\\Charles Choi\\Downloads\\MA0265.1.transfac"
+#     pfm = getFac(facFile)
+#     print(pfm)
     
-    pwm = getPWM(pfm)
-    print(pwm)
-    dict = getPeaksDict(fileName)
-    print(dict)
+#     pwm = getPWM(pfm)
+#     print(pwm)
+#     dict = getPeaksDict(fileName)
+#     print(dict)
     
     ## Try Loading Genome
     # faFilePath = "C:\\Users\\Charles Choi\\Downloads\\hg38.fa"
@@ -161,4 +157,3 @@ def main():
     # seqDict = getSequence(egPeaksDict, genomeDict)
     # print(seqDict)
     
-main()
