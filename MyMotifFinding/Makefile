@@ -14,7 +14,7 @@ ifeq ($(OS), Windows_NT)
 clean:
 	if exist "./build" rd /s /q build
 	if exist "./dist" rd /s /q dist
-	
+
 else
 clean:
 	rm -rf build
