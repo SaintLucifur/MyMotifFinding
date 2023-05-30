@@ -1,3 +1,7 @@
+# **Peer Review**
+
+Apology for the inconvenience. Since we haven't polished up our project, if you can please submit the review no sooner than Wednesday.
+
 # MyMotifFinding
 
 This project is designed to identify motifs in peak sequences based on the known motif pwms (position weighted matrix). It provides a Python package that would load reference genome, compute GC content, identify peaks in the sequence, calculate scores of identified motifs, and compute the enrichment of motifs in bound sequences.
