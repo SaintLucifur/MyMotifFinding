@@ -85,27 +85,24 @@ table, th, td {style}
         <th><b>Scores</b></th>
 """.format(dir=peakDir, transfac=transpath, style="{border: 1px solid black;font-weight:400;\
            border-collapse: collapse;}")
+    
+    n = 1
+    colorDict = {
+        "A":"""<mark style="color:Red;background:none">""",
+        "T":"""<mark style="color:Blue;background:none">""",
+        "G":"""<mark style="color:Green;background:none">""",
+        "C":"""<mark style="color:#ff8c00;background:none">"""
+    }
 
     html.write(header)
-    n = 1
-    A_col = """<p style="color:Red;">"""
-    T_col = """<p style="color:Blue;">"""
-    C_col = """<p style="color:Yellow;">"""
-    G_col = """<p style="color:Green;">"""
-    colorDict = {
-        "A":A_col,
-        "T":T_col,
-        "G":G_col,
-        "C":C_col
-    }
-    
+    html.write("<p>")
     for score in top10:
         html.write("\t<tr>\n")
         score_trimmed = format(score, '.5f')
-        html.write("\t\t<th>{0}</th>".format(n))
+        html.write("\t\t<th>{0}</th><th><p>".format(n))
         for nuc in scoresDict[score]:
-            html.write("{0}{1}</p>".format(colorDict[nuc], nuc))
-        html.write("<th>{0}</th>\n".format(score_trimmed))
+            html.write("{0}{1}</mark>".format(colorDict[nuc], nuc))
+        html.write("</p></th><th>{0}</th>\n".format(score_trimmed))
         html.write("\t</tr>\n")
         n += 1
         
