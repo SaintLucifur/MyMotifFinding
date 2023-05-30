@@ -8,7 +8,7 @@ install:
 	pip install -r requirements.txt
 
 build: setup.py
-	python setup.py build bdist_wheel
+	python ../setup.py build bdist_wheel
 
 ifeq ($(OS), Windows_NT)
 clean:
