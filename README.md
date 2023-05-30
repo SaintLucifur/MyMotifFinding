@@ -51,9 +51,9 @@ The order to run the scripts would be:
 
     `python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -O <output_directory> <path_to_peaks_file>`
 2. (Automatically Run) **Background_Frequency.py** script to calculate the background frequency.
-    `python Background_Frequency.py`
+
 3. (Automatically Run) **findPValue.py** to calculate the p-values for motif enrichment.
-    `python findPValue.py`
+
 4. The utils.py script does not need to be run directly as it is imported by the other scripts.
 
 **Please replace <path_to_fasta_ref>, <output_file>, <path_to_peaks_file>, and <path_to_fac_file> with your actual file paths.**
