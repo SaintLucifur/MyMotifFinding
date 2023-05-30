@@ -6,7 +6,11 @@ This project is designed to identify motifs in peak sequences based on the known
 
 **NOTE**: We recommend using JupyterHub to run this package due to possible operating system conflicts and problems regarding package installment.
 
+* First go into the directory
+
 `cd MyMotifFinding`
+
+* Then run the following command
 
 `python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <path_to_fac_file> -O <output_directory> <path_to_peaks_file>`
 
