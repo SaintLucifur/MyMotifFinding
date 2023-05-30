@@ -1,6 +1,6 @@
 # HOMER Peaks
 # Peak finding parameters:
-# tag directory = /home/dicai/lab5/tagdirs/Oct4.esc
+# tag directory = /home/xxx/lab5/tagdirs/Oct4.esc
 #
 # total peaks = 2203
 # peak size = 75
