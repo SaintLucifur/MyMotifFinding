@@ -36,7 +36,20 @@ def FindMaxScore(pwm, seq):
 
 # Load the PWMs from JASPAR
 PWMList = [motifs.read(file, "jaspar") for file in pwm_files]
-pwm_thresholds = [calculate_pseudocounts(pwm) for pwm in PWMList]
+def calculate_pwm_thresholds(PWMList):
+    """Calculate pseudocounts for each PWM in a list
+    
+    Parameters
+    ----------
+    PWMList : list
+        A list of Position Weight Matrices (PWMs)
+
+    Returns
+    -------
+    pwm_thresholds : list
+        A list of pseudocounts for each PWM in the input list
+    """
+    return [calculate_pseudocounts(pwm) for pwm in PWMList]
 
 # Load the sequences 
 genome_dict = load_genome("GRCm38.chr17.fa")
