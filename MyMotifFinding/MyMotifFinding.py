@@ -88,10 +88,24 @@ table, th, td {style}
 
     html.write(header)
     n = 1
+    A_col = """<p style="color:Red;">"""
+    T_col = """<p style="color:Blue;">"""
+    C_col = """<p style="color:Yellow;">"""
+    G_col = """<p style="color:Green;">"""
+    colorDict = {
+        "A":A_col,
+        "T":T_col,
+        "G":G_col,
+        "C":C_col
+    }
+    
     for score in top10:
         html.write("\t<tr>\n")
         score_trimmed = format(score, '.5f')
-        html.write("\t\t<th>{0}<th>{1}</th> <th>{2}</th>\n".format(n, scoresDict[score], score_trimmed))
+        html.write("\t\t<th>{0}</th>".format(n))
+        for nuc in scoresDict[score]:
+            html.write("{0}{1}</p>".format(colorDict[nuc], nuc))
+        html.write("<th>{0}</th>\n".format(score_trimmed))
         html.write("\t</tr>\n")
         n += 1
         
