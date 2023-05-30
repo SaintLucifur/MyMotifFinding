@@ -21,7 +21,7 @@ This project is designed to identify motifs in peak sequences based on the known
 ## **Arguments** (required):
 * `-f`: path to the indexed reference genome in fasta format
 * `-transfac`: path to the **JASPAR** PFM of specific transcription factor in transfac format
-* `-O`: path to the directory in which the output is written (will create one if it does not exist)
+* `-O`: path to the directory in which the output (**html file**) is written (will create one if it does not exist)
 * path to the **HOMER** peaks.txt output
 
 ### **Scripts**:
