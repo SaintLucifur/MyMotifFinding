@@ -14,7 +14,7 @@ This project is designed to identify motifs in peak sequences based on the known
 * `-O`: path to the directory in which the output is written (will create one if it does not exist)
 * path to the **HOMER** peaks.txt output
 
-**Scripts**:
+### **Scripts**:
 
 *Background_Frequency.py*: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
 
@@ -24,7 +24,7 @@ This project is designed to identify motifs in peak sequences based on the known
 
 *utils.py*: Provides utility functions for loading and processing data, and basic calculation on pfms, pwms.
 
-**Prerequisites**:
+## **Prerequisites**:
 
 **Ensure you have the following installed on your system**:
 1. Python 3.8 or higher
@@ -32,12 +32,12 @@ This project is designed to identify motifs in peak sequences based on the known
 3. NumPy
 4. SciPy
 
-**Getting Started**:
+## **Getting Started**:
 
 **Clone this repository**:
 `git clone https://github.com/SaintLucifur/MyMotifFinding.git`
 
-**Instructions**:
+## **Instructions**:
 
 The order to run the scripts would be:
 
@@ -52,7 +52,7 @@ The order to run the scripts would be:
 
 **Please replace <path_to_fasta_ref>, <output_file>, <path_to_peaks_file>, and <path_to_fac_file> with your actual file paths.**
 
-**Testing**:
+## **Testing**:
 
 Minimal test datasets are included in the `Test` folder (you can find it under `MyMotifFinding` folder）for testing purposes.
 Datasets in `Test`:
@@ -62,7 +62,7 @@ Datasets in `Test`:
 
 You can run the scripts with these datasets to verify the functionality of the scripts.
 
-**Contributing**:
+## **Contributing**:
 
 If you wish to contribute to this project, please create your own fork of this repository and submit a pull request.
 
