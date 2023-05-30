@@ -1,7 +1,6 @@
 import scipy.stats
 from Bio import motifs
 from Bio.motifs.jaspar import calculate_pseudocounts
-from Bio import SeqIO
 import numpy as np
 
 def ComputeEnrichment(peak_total, peak_motif, bg_total, bg_motif):
