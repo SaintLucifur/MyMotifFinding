@@ -79,5 +79,5 @@ def calculate_enrichment_for_each_pwm(PWMList, pwm_thresholds, peak_seqs, bg_seq
         print(f"PWM: {pwm.name}, {num_peak_pass}/{len(peak_seqs)} peaks, {num_bg_pass}/{len(bg_seqs)} background; p-val: {pval}")
 
 # Call the function
-calculate_enrichment_for_each_pwm(PWMList, pwm_thresholds, peak_seqs, bg_seqs)
+# calculate_enrichment_for_each_pwm(PWMList, pwm_thresholds, peak_seqs, bg_seqs)
 
