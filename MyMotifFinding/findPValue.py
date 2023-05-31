@@ -55,7 +55,31 @@ def RandomSequence(n, freqs):
         seq += ''.join(random.choices(nucs, freqs))
     return seq
 
-def 
+def GetThreshold(null_dist, pval):
+    """ Find the threshold to achieve a desired p-value
+    
+    Given a null distribution (list of values),
+    find the threshold to achieve a desired p-value
+    
+    Parameters
+    ----------
+    null_dist : list of float
+       Null distribution of scores
+    pval : float
+       pval% of null_dist should be above the threshold returned
+       
+    Returns
+    -------
+    thresh : float
+       Threshold to achieve the desired p-value    
+    """
+    thresh = 0 # set this  below to be the score threshold to obtain a p-value <0.01
+    
+    null_dist.sort(reverse=True)
+    index = int(len(null_dist)*pval)
+    thresh = null_dist[index]
+    
+    return thresh 
 # def calculate_pwm_thresholds(PWMList):
 #     """Calculate pseudocounts for each PWM in a list
     
