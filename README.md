@@ -11,6 +11,7 @@ This project is designed to identify motifs in peak sequences based on the known
 **NOTE**: We recommend using JupyterHub to run this package due to possible operating system conflicts and problems regarding package installment.
 
 **First Clone this repository**:
+
 `git clone https://github.com/SaintLucifur/MyMotifFinding.git`
 
 * Go into the directory
