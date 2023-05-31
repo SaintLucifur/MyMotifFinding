@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[6]:
-
-
 from typing import Dict
 
 def load_genome(filename): 
@@ -35,7 +29,6 @@ def load_genome(filename):
 #https://stackoverflow.com/questions/22698807/parse-fasta-sequence-to-the-dictionary
 
 
-# In[ ]:
 
     
 

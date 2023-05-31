@@ -2,6 +2,8 @@ import scipy.stats
 from Bio import motifs
 from Bio.motifs.jaspar import calculate_pseudocounts
 import numpy as np
+from numpy.random import choice
+import random
 
 def ComputeEnrichment(peak_total, peak_motif, bg_total, bg_motif):
     """ Compute fisher exact test to test whether motif is enriched in bound sequences
@@ -29,54 +31,70 @@ def ComputeEnrichment(peak_total, peak_motif, bg_total, bg_motif):
     
     return pval
 
-def FindMaxScore(pwm, seq):
-    """ Return the maximum score of a motif within a sequence """
-    return max(pwm.calculate(seq))
-
-# Load the PWMs from JASPAR
-PWMList = [motifs.read(file, "jaspar") for file in pwm_files]
-def calculate_pwm_thresholds(PWMList):
-    """Calculate pseudocounts for each PWM in a list
+def RandomSequence(n, freqs):
+    """ Generate a random string of nucleotides of length n
+    
+    Use the given nucleotide frequences
     
     Parameters
     ----------
-    PWMList : list
-        A list of Position Weight Matrices (PWMs)
-
+    n : int
+       Length of random string to generate
+    freqs : list of float
+       List of frequencies of A, C, G, T
+       
     Returns
     -------
-    pwm_thresholds : list
-        A list of pseudocounts for each PWM in the input list
+    seq : str
+       random sequence of length n with the specified allele frequencies
     """
-    return [calculate_pseudocounts(pwm) for pwm in PWMList]
+    seq = "A"*n
+    seq = ""
+    nucs = ['A', 'C', 'G', 'T']
+    for i in range(n):
+        seq += ''.join(random.choices(nucs, freqs))
+    return seq
+
+def 
+# def calculate_pwm_thresholds(PWMList):
+#     """Calculate pseudocounts for each PWM in a list
+    
+#     Parameters
+#     ----------
+#     PWMList : list
+#         A list of Position Weight Matrices (PWMs)
+
+#     Returns
+#     -------
+#     pwm_thresholds : list
+#         A list of pseudocounts for each PWM in the input list
+#     """
+#     return [calculate_pseudocounts(pwm) for pwm in PWMList]
 
 # Load the sequences 
-genome_dict = load_genome("GRCm38.chr17.fa")
-peaksDict = getPeaksDict("peaks.txt")
-peak_seqs = getSeqList(peaksDict, genome_dict)
-bg_seqs = getBackgroundFreq(genome_dict, peaksDict, total_regions=10000)
 
-def calculate_enrichment_for_each_pwm(PWMList, pwm_thresholds, peak_seqs, bg_seqs):
-    """Calculate the enrichment for each motif in the PWMList and print the result.
 
-    Parameters
-    ----------
-    PWMList : list
-        A list of Position Weight Matrices (PWMs)
-    pwm_thresholds : list
-        A list of pseudocounts for each PWM in the PWMList
-    peak_seqs : list
-        A list of peak sequences
-    bg_seqs : list
-        A list of background sequences
-    """
-    for i in range(len(PWMList)):
-        pwm = PWMList[i]
-        thresh = pwm_thresholds[i]
-        num_peak_pass = np.sum([int(FindMaxScore(pwm, seq) > thresh) for seq in peak_seqs])
-        num_bg_pass = np.sum([int(FindMaxScore(pwm, seq) > thresh) for seq in bg_seqs])
-        pval = ComputeEnrichment(len(peak_seqs), num_peak_pass, len(bg_seqs), num_bg_pass)
-        print(f"PWM: {pwm.name}, {num_peak_pass}/{len(peak_seqs)} peaks, {num_bg_pass}/{len(bg_seqs)} background; p-val: {pval}")
+# def calculate_enrichment_for_each_pwm(PWMList, pwm_thresholds, peak_seqs, bg_seqs):
+#     """Calculate the enrichment for each motif in the PWMList and print the result.
+
+#     Parameters
+#     ----------
+#     PWMList : list
+#         A list of Position Weight Matrices (PWMs)
+#     pwm_thresholds : list
+#         A list of pseudocounts for each PWM in the PWMList
+#     peak_seqs : list
+#         A list of peak sequences
+#     bg_seqs : list
+#         A list of background sequences
+#     """
+#     for i in range(len(PWMList)):
+#         pwm = PWMList[i]
+#         thresh = pwm_thresholds[i]
+#         num_peak_pass = np.sum([int(FindMaxScore(pwm, seq) > thresh) for seq in peak_seqs])
+#         num_bg_pass = np.sum([int(FindMaxScore(pwm, seq) > thresh) for seq in bg_seqs])
+#         pval = ComputeEnrichment(len(peak_seqs), num_peak_pass, len(bg_seqs), num_bg_pass)
+#         print(f"PWM: {pwm.name}, {num_peak_pass}/{len(peak_seqs)} peaks, {num_bg_pass}/{len(bg_seqs)} background; p-val: {pval}")
 
 # Call the function
 # calculate_enrichment_for_each_pwm(PWMList, pwm_thresholds, peak_seqs, bg_seqs)

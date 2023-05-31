@@ -14,6 +14,7 @@ import os
 import sys
 import loadGenome
 import Background_Frequency as BF
+import findPValue as FP
 
 def mergeDict(dict1, dict2):
     merged_dict = dict1.copy()
@@ -27,7 +28,7 @@ def main():
         
     )
     
-    # Input
+    ## Input
     parser.add_argument("peaks", help="HOMER peaks file", type=str)
     
     parser.add_argument("-f", "--fasta-ref", 
@@ -36,21 +37,29 @@ def main():
     
     parser.add_argument("-transfac", "--fac", help="transfac file from JASPAR", metavar="FILE", type=str)
     
-    # Output
+    ## Output
     parser.add_argument("-O", "--out", help="Write output to the directory." \
         "Default: stdout", metavar="DIR", type=str, required=False)
     
-    # Parse args
+    ## Parse args
     args = parser.parse_args()
     
-    # genome.get_seq(start:, end:, chr)
-
+    ## Process data in peaks.txt
     peaksDict = utils.getPeaksDict(args.peaks)
+    
+    ## Process data in transfac file
     pfm = utils.getFac(args.fac)
+    
+    ## Process data in fasta reference genome
     genomeDict = loadGenome.load_genome(args.fasta_ref)
-    # backgroundFreq = BF.getBackgroundFreq(genomeDict, peaksDict)
-    # pwm = utils.getPWM(pfm)
-    pwm = utils.getPWM(pfm, [0.28393081037720014, 0.2152101167620156, 0.2144817224377074, 0.2863773504230768])
+    
+    ## Compute background frequency
+    backgroundFreq = BF.getBackgroundFreq(genomeDict, peaksDict)
+    
+    ## Compute PWM from PFM
+    pwm = utils.getPWM(pfm, backgroundFreq)
+    
+    ## Extract sequences from peaksDict
     sequences = utils.getSequences(peaksDict, genomeDict)
     scoresDict = {}
     for seq in sequences:
@@ -63,6 +72,7 @@ def main():
     ## html writing
     htmlpath = os.path.join(str(args.out), "KnownMotifFinding.html")
     peakDir = os.path.dirname(os.path.realpath(args.peaks))
+    htmldir = os.path.abspath(args.out)
     transpath = os.path.abspath(args.fac)
     
     if not os.path.exists(str(args.out)):
@@ -71,9 +81,9 @@ def main():
     
     header = """
 <html>\n<head>\n<title> \nOutput Data in an HTML file
-</title>\n</head> <h1>MMF Known Motif Enrichment Results </h1> \n
+</title>\n</head> <h1>MyMotifFinding Known Motif Enrichment Results </h1> <h2>(<u>{htmldir}</u>)</h2> \n
 <h3> peaks.txt path: <u>{dir}</u> </h3>
-<h3>TOP 10 Motif Found for <u>{transfac}</u></h3>\n
+<h3> transfac file path: <u>{transfac}</u></h3>\n
 <style>
 table, th, td {style}
 </style>
@@ -84,7 +94,7 @@ table, th, td {style}
         <th><b>Motif</b></th>
         <th><b>Scores</b></th>
 """.format(dir=peakDir, transfac=transpath, style="{border: 1px solid black;font-weight:400;\
-           border-collapse: collapse;}")
+           border-collapse: collapse;}", htmldir=htmldir)
     
     n = 1
     colorDict = {
@@ -95,14 +105,13 @@ table, th, td {style}
     }
 
     html.write(header)
-    html.write("<p>")
     for score in top10:
         html.write("\t<tr>\n")
         score_trimmed = format(score, '.5f')
-        html.write("\t\t<th>{0}</th><th><p>".format(n))
+        html.write("\t\t<th>{0}</th><th><b>".format(n))
         for nuc in scoresDict[score]:
             html.write("{0}{1}</mark>".format(colorDict[nuc], nuc))
-        html.write("</p></th><th>{0}</th>\n".format(score_trimmed))
+        html.write("</b></th><th>{0}</th>\n".format(score_trimmed))
         html.write("\t</tr>\n")
         n += 1
         
