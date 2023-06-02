@@ -4,9 +4,6 @@
 Command-line script to perform motif finding of peaks file
 
 """
-FASTA = "C:\\Users\\Charles Choi\\Downloads\\GRCm38.chr17.fa"
-PEAKS = "C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\peaks.txt"
-FAC = "C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\Two.transfac"
 import utils
 import argparse
 import os
@@ -16,7 +13,12 @@ import Background_Frequency as BF
 import numpy as np
 
 
-TRANSFAC = os.path.join(os.getcwd(), "source", "JASPAR2022_CORE_non-redundant_pfms_transfac.txt")
+FUNGI = os.path.join(os.getcwd(), "source", "fungi.transfac")
+INSECTS = os.path.join(os.getcwd(), "source", "insects.transfac")
+NEMATODES = os.path.join(os.getcwd(), "source", "nematodes.transfac")
+PLANTS = os.path.join(os.getcwd(), "source", "plants.transfac")
+UROCHORDATES = os.path.join(os.getcwd(), "source", "urochordates.transfac")
+VERTEBRATES = os.path.join(os.getcwd(), "source", "vertebrates.transfac")
 
 def mergeDict(dict1, dict2):
     merged_dict = dict1.copy()
@@ -37,6 +39,9 @@ def main():
                         help="faidx Indexed Referencce Genome fasta file", 
                         metavar="FILE", type=str)
     
+    parser.add_argument("-transfac", "--fac", help="taxonomic group from \
+        fungi, insects, nematodes, plants, urochordates", type=str)
+    
     ## Output
     parser.add_argument("-O", "--out", help="Write output to the directory." \
         "Default: stdout", metavar="DIR", type=str, required=False)
@@ -46,6 +51,17 @@ def main():
     
     ## Process data in peaks.txt
     peaksDict = utils.getPeaksDict(args.peaks)
+    
+    ## Get the correct transfac file
+    transfacPathDict = {
+        "fungi":FUNGI,
+        "insects":INSECTS,
+        "nematodes":NEMATODES,
+        "plants":PLANTS,
+        "urochordates":UROCHORDATES,
+        "vertebrates":VERTEBRATES
+    }
+    TRANSFAC = transfacPathDict[args.fac]
     
     ## Process data in transfac file
     id_pwm_logo_Dict = utils.getFac(TRANSFAC)
