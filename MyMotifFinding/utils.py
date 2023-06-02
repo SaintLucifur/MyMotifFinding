@@ -207,7 +207,7 @@ def ComputeEnrichment(peak_total, peak_motif, bg_total, bg_motif):
     pval : float
        Fisher Exact Test p-value    
     """
-    # print("{0}, {1}, {2}, {3}".format(peak_total, peak_motif, bg_total, bg_motif))
+    print("{0}, {1}, {2}, {3}".format(peak_total, peak_motif, bg_total, bg_motif))
     peak_notb = peak_total-peak_motif
     bg_notb = bg_total - bg_motif
     table =[[peak_motif,bg_motif],[peak_notb,bg_notb]]
@@ -239,7 +239,7 @@ def RandomSequence(n, freqs):
         seq += ''.join(random.choices(nucs, freqs))
     return seq
 
-def GetThreshold(null_dist, pval=1e-8):
+def GetThreshold(null_dist, pval=1e-5):
     """ Find the threshold to achieve a desired p-value
     
     Given a null distribution (list of values),
