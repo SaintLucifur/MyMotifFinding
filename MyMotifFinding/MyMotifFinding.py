@@ -13,7 +13,6 @@ import os
 import sys
 import loadGenome
 import Background_Frequency as BF
-import findPValue as FP
 import numpy as np
 
 
@@ -88,7 +87,7 @@ def main():
         tup = (value[2], key)
         tupleList.append(tup)
     sortedTupleList = sorted(tupleList, key=lambda tup: float(tup[0]))
-    
+
     ## html writing
     htmlpath = os.path.join(str(args.out), "KnownMotifFinding.html")
     peakDir = os.path.dirname(os.path.realpath(args.peaks))
