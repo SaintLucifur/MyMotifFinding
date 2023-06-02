@@ -61,7 +61,7 @@ def main():
     
     ## Get PWM thresholds
     total = int(list(peaksDict.values())[0][4])
-    numsim = total
+    numsim = total*20
     
     i = 1
     for id in id_pwm_logo_Dict.keys():
@@ -101,6 +101,7 @@ def main():
 <html>\n<head>\n<title> \nOutput Data in an HTML file
 </title>\n</head> <h1>MyMotifFinding Known Motif Enrichment Results </h1> <h2>(<u>{htmldir}</u>)</h2> \n
 <h3> peaks.txt path: <u>{dir}</u> </h3>
+Total Target Sequences = {peaks}, Total Background Sequences = {numsim}
 <style>
 table, th, td {style}
 </style>
@@ -117,7 +118,7 @@ table, th, td {style}
         <th># Bg_match</th>
         <th>% Bg_match</th>
 """.format(dir=peakDir, style="{border: 1px solid black;font-weight:400;\
-           border-collapse: collapse;}", htmldir=htmldir)
+           border-collapse: collapse;}", htmldir=htmldir, numsim=numsim, peaks=total)
 
     n = 1
     html.write(header)
