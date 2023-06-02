@@ -1,0 +1,42 @@
+AC MA0004.1
+XX
+ID Arnt
+XX
+DE MA0004.1 Arnt ; From JASPAR
+PO	A	C	G	T
+01	4.0	16.0	0.0	0.0
+02	19.0	0.0	1.0	0.0
+03	0.0	20.0	0.0	0.0
+04	0.0	0.0	20.0	0.0
+05	0.0	0.0	0.0	20.0
+06	0.0	0.0	20.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:7592839
+CC uniprot_ids:P53762
+CC data_type:SELEX
+XX
+//
+AC MA0006.1
+XX
+ID Ahr::Arnt
+XX
+DE MA0006.1 Ahr::Arnt ; From JASPAR
+PO	A	C	G	T
+01	3.0	8.0	2.0	11.0
+02	0.0	0.0	23.0	1.0
+03	0.0	23.0	0.0	1.0
+04	0.0	0.0	23.0	1.0
+05	0.0	0.0	0.0	24.0
+06	0.0	0.0	24.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors; PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH); Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:7592839
+CC uniprot_ids:P30561; P53762
+CC data_type:SELEX
+XX
+//
