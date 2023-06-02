@@ -1,8 +1,4 @@
 run:
-	python MyMotifFinding.py -f "C:\\Users\\Charles Choi\\Downloads\\GRCm38.chr17.fa" \
-	-transfac "C:\\Users\\Charles Choi\\Downloads\\MA0143.1.transfac" \
-	-O testFolder \
-	"C:\\Users\\Charles Choi\\Documents\\GitHub\\MyMotifFinding\\MyMotifFinding\\Test\\peaks.txt"
 
 install:
 	pip install -r requirements.txt

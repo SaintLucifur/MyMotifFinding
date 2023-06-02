@@ -1,5 +1,4 @@
 from typing import Dict
-import re
 import random
 from collections import Counter
 
