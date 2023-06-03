@@ -84,7 +84,7 @@ def main():
     pwmNum = len(id_pwm_logo_Dict.keys())
     print("--- total number of PWMs found: {0} ---\n".format(pwmNum))
     estimatedTime = pwmNum*3/60
-    print("*** Estimated time: {:.2f} ***\n".format(estimatedTime))
+    print("*** Estimated time: {:.2f} minutes ***\n".format(estimatedTime))
     i = pwmNum
     
     pwm_time = time.time()
