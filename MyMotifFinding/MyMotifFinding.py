@@ -97,17 +97,20 @@ def main():
         num_bg_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in bg_seqs])
         pval = utils.ComputeEnrichment(total, num_peak_pass, numsim, num_bg_pass)
         id_pwm_logo_Dict[id].append("{:.2e}".format(pval))
-        id_pwm_logo_Dict[id].append("{:.2e}".format(np.log10(pval+1)))
+        id_pwm_logo_Dict[id].append("{:.2e}".format(-np.log10(pval+1)))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_peak_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_peak_pass/total*100))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_bg_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_bg_pass/total*100))
         i -= 1
         percentageDone = (1-i/pwmNum)*100
-        print("--- percentage done {:.2f}% ---".format(percentageDone), end="\r")
+        if percentageDone != 100:
+            print("--- percentage done {:.2f}% ---".format(percentageDone), end="\r")
+        else:
+            print("--- percentage done {:.2f}% ---\n".format(percentageDone))
         
     print("--- PWM processing: %s seconds ---\n" % (time.time() - pwm_time))
-    print("*** Go ahead and copy the path of the output html file and open it in browser! ***")
+    print("*** Go ahead and copy the path of the output html file and open it in browser! ***\n")
     
     ## Rank p-value
     tupleList = []
