@@ -14,9 +14,19 @@ This project is designed to identify motifs in peak sequences based on the known
 
 `cd MyMotifFinding`
 
+* Go into the subdirectory
+
+`cd MyMotifFinding`
+
 * Then run the following command
 
 `python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <taxonomic group> -O <output_directory> <path_to_peaks_file>`
+
+**For simple demo**(just to give you a sense of what the output would be):
+
+On **Datahub**, run the following command:
+
+`python MyMotifFinding.py -f ~/public/lab5/GRCm38.chr17.fa -transfac nematodes -O demo source/test.transfac`
 
 ## **Arguments** (required):
 * `-f`: path to the indexed reference genome in fasta format
