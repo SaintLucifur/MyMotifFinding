@@ -22,7 +22,7 @@ This project is designed to identify motifs in peak sequences based on the known
 
 `python MyMotifFinding.py -f <path_to_fasta_ref> -transfac <taxonomic group> -O <output_directory> <path_to_peaks_file>`
 
-**For simple demo**(just to give you a sense of what the output would be):
+#### For simple demo (just to give you a sense of what the output would be):
 
 On **Datahub**, run the following command:
 
