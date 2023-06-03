@@ -152,6 +152,8 @@ table, th, td {style}
     n = 1
     html.write(header)
     for tup in sortedTupleList:
+        if n > 100:
+            break
         id = tup[1]
         html.write("\t<tr>\n")
         html.write("\t\t<th>{0}</th>".format(n)) ## Rank
