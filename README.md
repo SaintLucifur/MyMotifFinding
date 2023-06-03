@@ -26,7 +26,7 @@ This project is designed to identify motifs in peak sequences based on the known
 
 On **Datahub**, run the following command:
 
-`python MyMotifFinding.py -f ~/public/lab5/GRCm38.chr17.fa -transfac nematodes -O demo source/peaks.txt`
+`python MyMotifFinding.py -f ~/public/lab5/GRCm38.chr17.fa -transfac nematodes -O demo Test/peaks.txt`
 
 ## **Arguments** (required):
 * `-f`: path to the indexed reference genome in fasta format
