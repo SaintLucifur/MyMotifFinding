@@ -82,7 +82,7 @@ def main():
     
     ## Get number of PWMs
     pwmNum = len(id_pwm_logo_Dict.keys())
-    print("--- total number of PWMs found {0} ---\n".format(pwmNum))
+    print("--- total number of PWMs found: {0} ---\n".format(pwmNum))
     
     i = pwmNum
     
