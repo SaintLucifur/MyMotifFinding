@@ -61,17 +61,17 @@ def main():
     ## Process data in transfac file
     tf_time = time.time()
     id_pwm_logo_Dict = utils.getFac(TRANSFAC)
-    print("\n--- transfac file processing: %.2s seconds ---\n" % (time.time() - tf_time))
+    print("\n--- transfac file processing: %.2f seconds ---\n" % (time.time() - tf_time))
     
     ## Process data in fasta reference genome
     gn_time = time.time()
     genomeDict = loadGenome.load_genome(args.fasta_ref)
-    print("--- fasta file processing: %.2s seconds ---\n" % (time.time() - gn_time))
+    print("--- fasta file processing: %.2f seconds ---\n" % (time.time() - gn_time))
     
     ## Compute background frequency
     bg_time = time.time()
     backgroundFreq = BF.getBackgroundFreq(genomeDict, peaksDict)
-    print("--- background freqs processing: %.2s seconds ---\n" % (time.time() - bg_time))
+    print("--- background freqs processing: %.2f seconds ---\n" % (time.time() - bg_time))
     
     ## Extract sequences from peaksDict
     sequences = utils.getSequences(peaksDict, genomeDict)
@@ -109,7 +109,7 @@ def main():
         else:
             print("--- percentage done {:.2f}% ---\n".format(percentageDone))
         
-    print("--- PWM processing: %.2s minutes ---\n" % (time.time() - pwm_time)/60)
+    print("--- PWM processing: %.2f minutes ---\n" % ((time.time() - pwm_time)/60))
     print("*** Go ahead and copy the path of the output html file and open it in the browser! ***\n")
     
     ## Rank p-value
