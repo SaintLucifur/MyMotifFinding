@@ -30,7 +30,7 @@ On **Datahub**, run the following command:
 
 ## **Arguments** (required):
 * `-f`: path to the indexed reference genome in fasta format
-* `-transfac`: taxonomic group of the species of the peaks data, available options are `fungi`, `insects`, `nematodes`, `plants`, `urochordates`, `vertebrates` (vertebrates will take a long time)
+* `-transfac`: taxonomic group of the species of the peaks data, available options are `fungi`, `insects`, `nematodes`, `plants`, `urochordates`, `vertebrates` (vertebrates and plants will take a long time)
 * `-O`: path to the directory in which the output (**html file**) is written (will create one if it does not exist)
 * path to the **HOMER** peaks.txt output
 
