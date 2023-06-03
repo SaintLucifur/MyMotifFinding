@@ -11,7 +11,7 @@ import sys
 import loadGenome
 import Background_Frequency as BF
 import numpy as np
-
+import time
 
 FUNGI = os.path.join(os.getcwd(), "source", "fungi.transfac")
 INSECTS = os.path.join(os.getcwd(), "source", "insects.transfac")
@@ -20,11 +20,6 @@ PLANTS = os.path.join(os.getcwd(), "source", "plants.transfac")
 UROCHORDATES = os.path.join(os.getcwd(), "source", "urochordates.transfac")
 VERTEBRATES = os.path.join(os.getcwd(), "source", "vertebrates.transfac")
 
-def mergeDict(dict1, dict2):
-    merged_dict = dict1.copy()
-    merged_dict.update(dict2)
-    return merged_dict
-    
 def main():
     parser = argparse.ArgumentParser(
         prog="mmf",
@@ -64,13 +59,19 @@ def main():
     TRANSFAC = transfacPathDict[args.fac]
     
     ## Process data in transfac file
+    tf_time = time.time()
     id_pwm_logo_Dict = utils.getFac(TRANSFAC)
+    print("\n--- transfac file processing: %s seconds ---\n" % (time.time() - tf_time))
     
     ## Process data in fasta reference genome
+    gn_time = time.time()
     genomeDict = loadGenome.load_genome(args.fasta_ref)
+    print("--- fasta file processing: %s seconds ---\n" % (time.time() - gn_time))
     
     ## Compute background frequency
+    bg_time = time.time()
     backgroundFreq = BF.getBackgroundFreq(genomeDict, peaksDict)
+    print("--- background freqs processing: %s seconds ---\n" % (time.time() - bg_time))
     
     ## Extract sequences from peaksDict
     sequences = utils.getSequences(peaksDict, genomeDict)
@@ -79,7 +80,13 @@ def main():
     total = int(list(peaksDict.values())[0][4])
     numsim = total*20
     
-    i = 1
+    ## Get number of PWMs
+    pwmNum = len(id_pwm_logo_Dict.keys())
+    print("--- total number of PWMs found {0} ---\n".format(pwmNum))
+    
+    i = pwmNum
+    
+    pwm_time = time.time()
     for id in id_pwm_logo_Dict.keys():
         bg_seqs = []
         pwm = id_pwm_logo_Dict[id][0]
@@ -95,7 +102,12 @@ def main():
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_peak_pass/total*100))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_bg_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_bg_pass/total*100))
-        # print("#{0}: {1}".format(i, pval))
+        i -= 1
+        percentageDone = (1-i/pwmNum)*100
+        print("--- percentage done {:.2f}% ---".format(percentageDone), end="\r")
+        
+    print("--- PWM processing: %s seconds ---\n" % (time.time() - pwm_time))
+    print("*** Go ahead and copy the path of the output html file and open it in browser! ***")
     
     ## Rank p-value
     tupleList = []
@@ -115,7 +127,8 @@ def main():
     
     header = """
 <html>\n<head>\n<title> \nOutput Data in an HTML file
-</title>\n</head> <h1>MyMotifFinding Known Motif Enrichment Results </h1> <h2>(<u>{htmldir}</u>)</h2> \n
+</title>\n</head> <h1>MyMotifFinding Known Motif Enrichment Results ({group})</h1> 
+<h2>(<u>{htmldir}</u>)</h2> \n
 <h3> peaks.txt path: <u>{dir}</u> </h3>
 Total Target Sequences = {peaks}, Total Background Sequences = {numsim}
 <style>
@@ -134,7 +147,7 @@ table, th, td {style}
         <th># Bg_match</th>
         <th>% Bg_match</th>
 """.format(dir=peakDir, style="{border: 1px solid black;font-weight:400;\
-           border-collapse: collapse;}", htmldir=htmldir, numsim=numsim, peaks=total)
+           border-collapse: collapse;}", htmldir=htmldir, numsim=numsim, peaks=total, group=args.fac)
 
     n = 1
     html.write(header)

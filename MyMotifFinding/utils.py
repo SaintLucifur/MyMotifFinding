@@ -5,8 +5,6 @@ from numpy.random import choice
 import random
 import scipy.stats
 
-fileName = ".\Test\peaksTest.txt"
-
 def getPeaksDict(fileName):
     """ Read the peaks.txt csv file
 
@@ -18,6 +16,7 @@ def getPeaksDict(fileName):
             value type: str list [chr, start, end, strand]
     """
     peaksDict = {}
+    
     with open(fileName, newline='') as csvPeak:
         f = csv.DictReader(csvPeak, delimiter='\t', fieldnames=["#PeakID", "chr", "start", "end",
                         "strand"])
@@ -34,7 +33,7 @@ def getPeaksDict(fileName):
                 i += 1
                 continue
             else:
-                peaksDict[row["#PeakID"]] = ["chr17", row["start"], row["end"],
+                peaksDict[row["#PeakID"]] = ["chr"+row["chr"], row["start"], row["end"],
                                                 row["strand"], total]
                 
     peaksDict.pop("#PeakID", None)            
@@ -105,13 +104,14 @@ def getSequences(peaksDict, genomeDict):
     
     for peak in peaksDict.keys():
         chr = peaksDict[peak][0]
-        start = int(peaksDict[peak][1])
-        end = int(peaksDict[peak][2])
-        strand = peaksDict[peak][3]
-        seq = genomeDict[chr][start:end]
-        if strand == '-': ## handle the reverse read
-            seq = getReverseComplement(seq)
-        sequences.append(seq)
+        if chr in genomeDict.keys():
+            start = int(peaksDict[peak][1])
+            end = int(peaksDict[peak][2])
+            strand = peaksDict[peak][3]
+            seq = genomeDict[chr][start:end]
+            if strand == '-': ## handle the reverse read
+                seq = getReverseComplement(seq)
+            sequences.append(seq)
     return sequences
 
 def getPFM(pfm):
@@ -207,7 +207,6 @@ def ComputeEnrichment(peak_total, peak_motif, bg_total, bg_motif):
     pval : float
        Fisher Exact Test p-value    
     """
-    print("{0}, {1}, {2}, {3}".format(peak_total, peak_motif, bg_total, bg_motif))
     peak_notb = peak_total-peak_motif
     bg_notb = bg_total - bg_motif
     table =[[peak_motif,bg_motif],[peak_notb,bg_notb]]

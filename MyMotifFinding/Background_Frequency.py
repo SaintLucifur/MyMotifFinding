@@ -9,10 +9,11 @@ def getSeqList(peaksDict, genome_dict):
     sequenceList = []
     for peak in peaksDict.keys():
         chr = peaksDict[peak][0]
-        start = int(peaksDict[peak][1])
-        end = int(peaksDict[peak][2])
-        seq = genome_dict[chr][start:end]
-        sequenceList.append(seq)
+        if chr in genome_dict.keys():
+            start = int(peaksDict[peak][1])
+            end = int(peaksDict[peak][2])
+            seq = genome_dict[chr][start:end]
+            sequenceList.append(seq)
         
     return sequenceList
 
