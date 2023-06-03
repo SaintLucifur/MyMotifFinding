@@ -4,7 +4,7 @@ This project is designed to identify motifs in peak sequences based on the known
 
 **How to run the package**:
 
-**NOTE**: We recommend using JupyterHub to run this package due to possible operating system conflicts and problems regarding package installment.
+**NOTE**: We recommend using JupyterHub to run this package due to possible operating system conflicts and problems regarding package installment. The whole running process could span **half an hour**!
 
 **First Clone this repository**:
 
