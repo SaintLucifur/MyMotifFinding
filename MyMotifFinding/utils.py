@@ -156,7 +156,8 @@ def ScoreSeq(pwm, sequence):
     
     nucs_rows = {'A':0, 'C':1, 'G':2, 'T':3}
     for i in range(len(sequence)):
-        score += pwm[nucs_rows[sequence[i]]][i]
+        if sequence[i] in nucs_rows.keys():
+            score += pwm[nucs_rows[sequence[i]]][i]
     
     return score
 
