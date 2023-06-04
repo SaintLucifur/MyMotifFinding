@@ -14,6 +14,8 @@ def load_genome(filename):
                 if chrom is not None:
                     genome_dict[chrom] = ''.join(genome_dict[chrom]).upper()
                 chrom = line[1:]
+                if chrom.startswith("chr"):
+                    chrom = chrom[3:]
                 genome_dict[chrom] = []
             else:
                 genome_dict[chrom].append(line)
