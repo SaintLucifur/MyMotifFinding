@@ -78,7 +78,10 @@ def main():
     
     ## Get PWM thresholds
     total = int(list(peaksDict.values())[0][4])
-    numsim = total*20
+    if total*20 < 40000:
+        numsim = total*20
+    else:
+        numsim = total
     
     ## Get number of PWMs
     pwmNum = len(id_pwm_logo_Dict.keys())
