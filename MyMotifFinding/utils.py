@@ -96,7 +96,7 @@ def getReverseComplement(seq):
     """
     revcomp = ""
     
-    reverse_dict = {'A':'T', 'T':'A', 'C':'G', 'G':'C'}
+    reverse_dict = {'A':'T', 'T':'A', 'C':'G', 'G':'C', 'N':'N'}
     for nuc in seq[::-1]:
         revcomp += reverse_dict[nuc]
         
