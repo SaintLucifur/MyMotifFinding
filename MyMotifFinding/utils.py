@@ -33,7 +33,10 @@ def getPeaksDict(fileName):
                 i += 1
                 continue
             else:
-                peaksDict[row["#PeakID"]] = ["chr"+row["chr"], row["start"], row["end"],
+                chr_value = row["chr"]
+                if chr_value.startswith("chr"):
+                    chr_value = chr_value[3:]
+                peaksDict[row["#PeakID"]] = [chr_value, row["start"], row["end"],
                                                 row["strand"], total]
                 
     peaksDict.pop("#PeakID", None)            
