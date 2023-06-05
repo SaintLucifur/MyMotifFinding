@@ -78,10 +78,7 @@ def main():
     
     ## Get PWM thresholds
     total = int(list(peaksDict.values())[0][4])
-    if total*20 < 40000:
-        numsim = total*20
-    else:
-        numsim = total
+    numsim = 40000
     
     ## Get number of PWMs
     pwmNum = len(id_pwm_logo_Dict.keys())
@@ -102,7 +99,7 @@ def main():
         num_bg_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in bg_seqs])
         pval = utils.ComputeEnrichment(total, num_peak_pass, numsim, num_bg_pass)
         id_pwm_logo_Dict[id].append("{:.0e}".format(pval))
-        id_pwm_logo_Dict[id].append("{:.3e}".format(np.log(pval+1)+1))
+        id_pwm_logo_Dict[id].append("{:.3e}".format(np.log(pval+1)))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_peak_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_peak_pass/total*100))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_bg_pass))
