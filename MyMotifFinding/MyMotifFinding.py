@@ -101,7 +101,7 @@ def main():
         num_peak_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in sequences])
         num_bg_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in bg_seqs])
         pval = utils.ComputeEnrichment(total, num_peak_pass, numsim, num_bg_pass)
-        id_pwm_logo_Dict[id].append("{:1.e}".format(pval))
+        id_pwm_logo_Dict[id].append("{:e}".format(pval))
         id_pwm_logo_Dict[id].append("{:.4e}".format(-np.log10(pval+1)))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_peak_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_peak_pass/total*100))
