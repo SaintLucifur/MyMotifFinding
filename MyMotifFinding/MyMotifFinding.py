@@ -99,14 +99,18 @@ def main():
         num_bg_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in bg_seqs])
         pval = utils.ComputeEnrichment(total, num_peak_pass, numsim, num_bg_pass)
         id_pwm_logo_Dict[id].append("{:.0e}".format(pval))
-        id_pwm_logo_Dict[id].append("{:.3e}".format(np.log(pval+1)))
+        if pval != 0:
+            lnPval = np.log(pval)
+        else:
+            lnPval = 0
+        id_pwm_logo_Dict[id].append("{:.3e}".format(lnPval))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_peak_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_peak_pass/total*100))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_bg_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_bg_pass/total*100))
         if i == pwmNum:
             totalTime = (time.time()-first)*pwmNum
-            print("*** Estimated time: {:.2f} minutes ***\n".format(totalTime))
+            print("*** Estimated time: {:.2f} minutes ***\n".format(totalTime/60))
         i -= 1
         percentageDone = (1-i/pwmNum)*100
 
