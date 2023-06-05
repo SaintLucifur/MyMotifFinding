@@ -101,8 +101,8 @@ def main():
         num_peak_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in sequences])
         num_bg_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in bg_seqs])
         pval = utils.ComputeEnrichment(total, num_peak_pass, numsim, num_bg_pass)
-        id_pwm_logo_Dict[id].append("{:e}".format(pval))
-        id_pwm_logo_Dict[id].append("{:.4e}".format(-np.log10(pval+1)))
+        id_pwm_logo_Dict[id].append("{:.0e}".format(pval))
+        id_pwm_logo_Dict[id].append("{:.4e}".format(np.log10(-np.log10(pval+1))))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_peak_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_peak_pass/total*100))
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_bg_pass))
@@ -153,7 +153,7 @@ table, th, td {style}
         <th>Motif</th>
         <th>Name</th>
         <th>P-value</th>
-        <th>p P-value</th>
+        <th>log p P-value</th>
         <th># peaks_match</th>
         <th>% peaks_match</th>
         <th># Bg_match</th>
