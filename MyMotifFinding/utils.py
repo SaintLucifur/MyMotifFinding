@@ -242,7 +242,7 @@ def RandomSequence(n, freqs):
         seq += ''.join(random.choices(nucs, freqs))
     return seq
 
-def GetThreshold(null_dist, pval=1e-5):
+def GetThreshold(null_dist, pval=0.01):
     """ Find the threshold to achieve a desired p-value
     
     Given a null distribution (list of values),
