@@ -34,6 +34,10 @@ On **Datahub**, run the following command:
 * `-O`: path to the directory in which the output (**html file**) is written (will create one if it does not exist)
 * path to the **HOMER** peaks.txt output
 
+## **Options**:
+
+* `-p`: p-value for threshold calculation, type=`float`
+
 ### **Scripts**:
 
 *Background_Frequency.py*: Calculates the background frequencies of nucleotides from a genome sequence in comparison to a list of sequences obtained from peaks.
