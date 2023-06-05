@@ -108,8 +108,8 @@ def main():
         id_pwm_logo_Dict[id].append("{:.1f}".format(num_bg_pass))
         id_pwm_logo_Dict[id].append("{:.2f}".format(num_bg_pass/total*100))
         if i == pwmNum:
-            firstStop = time.time()-first
-            print("*** Estimated time: {:.2f} minutes ***\n".format(firstStop))
+            totalTime = (time.time()-first)*pwmNum
+            print("*** Estimated time: {:.2f} minutes ***\n".format(totalTime))
         i -= 1
         percentageDone = (1-i/pwmNum)*100
 
