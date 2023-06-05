@@ -153,7 +153,7 @@ table, th, td {style}
         <th>Motif</th>
         <th>Name</th>
         <th>P-value</th>
-        <th>log p P-value</th>
+        <th>ln P-value</th>
         <th># peaks_match</th>
         <th>% peaks_match</th>
         <th># Bg_match</th>
