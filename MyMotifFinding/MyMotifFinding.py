@@ -37,6 +37,8 @@ def main():
     parser.add_argument("-transfac", "--fac", help="taxonomic group from \
         fungi, insects, nematodes, plants, urochordates", type=str)
     
+    parser.add_argument("-p", "--p", help="p-value threshold", type=float, required=False)
+    
     ## Output
     parser.add_argument("-O", "--out", help="Write output to the directory." \
         "Default: stdout", metavar="DIR", type=str, required=False)
@@ -94,7 +96,10 @@ def main():
         pwm = id_pwm_logo_Dict[id][0]
         bg_seqs = [(utils.RandomSequence(pwm.shape[1], backgroundFreq)) for j in range(numsim)]
         null_scores = [utils.ScoreSeq(pwm, bg_seq) for bg_seq in bg_seqs]
-        thresh = utils.GetThreshold(null_scores)
+        if args.p != None:
+            thresh = utils.GetThreshold(null_scores, args.p)
+        else:
+            thresh = utils.GetThreshold(null_scores)
         num_peak_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in sequences])
         num_bg_pass = np.sum([int(utils.FindMaxScore(pwm, seq)>thresh) for seq in bg_seqs])
         pval = utils.ComputeEnrichment(total, num_peak_pass, numsim, num_bg_pass)
