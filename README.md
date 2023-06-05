@@ -36,7 +36,7 @@ On **Datahub**, run the following command:
 
 ## **Options**:
 
-* `-p`: p-value for threshold calculation, type=`float`
+* `-p`: p-value for threshold calculation, type=`float`, default=`0.01`. We recommend trying something small (< 1e-5) to ensure the correctness.
 
 ### **Scripts**:
 
