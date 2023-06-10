@@ -1,0 +1,10 @@
+#sort the aligned bam file using samtools
+samtools sort ENCFF035XMI.bam > ~/cse185/MyMotifFinding/bam/ENCFF035XMI.sorted.bam 
+samtools sort ENCFF359SPP.bam > ~/cse185/MyMotifFinding/bam/ENCFF359SPP.sorted.bam 
+
+#Create tag directory 
+makeTagDirectory ~/cse185/MyMotifFinding/tagdirs/ENCFF035XMI ~/cse185/MyMotifFinding/bam/ENCFF035XMI.sorted.bam
+makeTagDirectory ~/cse185/MyMotifFinding/tagdirs/ENCFF359SPP ~/cse185/MyMotifFinding/bam/ENCFF359SPP.sorted.bam
+
+# Find the peaks
+findPeaks ~/cse185/MyMotifFinding/tagdirs/ENCFF359SPP -i ~/cse185/MyMotifFinding/tagdirs/ENCFF035XMI -style factor -o auto
