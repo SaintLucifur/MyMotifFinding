@@ -1,0 +1,5 @@
+# benchmark the runtime of homer findMotifsGenome.pl using Sox2 peaks.txt file
+time findMotifsGenome.pl ~/lab5/tagdirs/Sox2/peaks.txt  ~/public/genomes/GRCm38.fa  ~/Test/motifs/Sox2 -mask -size 100 
+
+# check the runtime for MyMotifFinding using Sox2 peaks.txt file
+time python MyMotifFinding.py -f ~/public/lab5/GRCm38.chr17.fa -transfac vertebrates -O ~/cse185/MyMotifFinding ~/cse185/MyMotifFinding/peaks.txt
