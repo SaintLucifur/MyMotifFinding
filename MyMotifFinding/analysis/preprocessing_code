@@ -1,3 +1,5 @@
+#The bam files size are too big; therefore, they are not included in this section
+
 #sort the aligned bam file using samtools
 samtools sort ENCFF035XMI.bam > ~/cse185/MyMotifFinding/bam/ENCFF035XMI.sorted.bam 
 samtools sort ENCFF359SPP.bam > ~/cse185/MyMotifFinding/bam/ENCFF359SPP.sorted.bam 
